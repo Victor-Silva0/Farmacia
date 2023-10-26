@@ -1,7 +1,7 @@
 <link rel="stylesheet" href="css/style.css">
 <style>
   body {background-color: #d8f2f3; font-family: 'Lato', sans-serif;}
-  .container {margin-top: 30px; margin-bottom: 20px; color: #133a3a;} 
+  .container {margin-top: 30px; margin-bottom: 20px; color: #133a3a;}
   .container > a{border: 10px solid #133a3a; border-radius: 15px;}
   .container1 {color: white; margin-top: 30px; padding: 50px; background-color: #133a3a;}
 </style>
@@ -9,25 +9,25 @@
 <div class="container">
   <div id="farmaciaCarousel" class="carousel slide" data-ride="carousel">
     <div class="carousel-inner">
-      <div class="carousel-item active text-center">
+      <div class="carousel-item active text-center" style="transition: transform 1s ease, opacity .1s ease-out">
         <h1>Medicamentos</h1>
         <a href="link-para-medicamentos.html" style="border: 10px solid #133a3a; border-radius: 15px; display: inline-block;">
         <img src="http://<?= APP_HOST ?>/public/images/1.jpg" style="margin: 0 auto;">
         </a>
       </div>
-      <div class="carousel-item text-center">
+      <div class="carousel-item text-center" style="transition: transform 1s ease, opacity .1s ease-out">
         <h1>Suplementos e Vitaminas</h1>
         <a href="link-para-suplementos.html" style="border: 10px solid #133a3a; border-radius: 15px; display: inline-block;">
         <img src="http://<?= APP_HOST ?>/public/images/2.jpg" style="margin: 0 auto;">
         </a>
       </div>
-      <div class="carousel-item text-center">
+      <div class="carousel-item text-center" style="transition: transform 1s ease, opacity .1s ease-out">
         <h1>Beleza</h1>
         <a href="link-para-beleza.html" style="border: 10px solid #133a3a; border-radius: 15px; display: inline-block;">
         <img src="http://<?= APP_HOST ?>/public/images/3.jpg" style="margin: 0 auto;">
         </a>
       </div>
-      <div class="carousel-item text-center">
+      <div class="carousel-item text-center" style="transition: transform 1s ease, opacity .1s ease-out">
         <h1>Higiene</h1>
         <a href="link-para-higiene.html" style="border: 10px solid #133a3a; border-radius: 15px; display: inline-block;">
         <img src="http://<?= APP_HOST ?>/public/images/4.jpg" style="margin: 0 auto;">
