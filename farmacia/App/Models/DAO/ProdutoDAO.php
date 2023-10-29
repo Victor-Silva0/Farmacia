@@ -6,34 +6,22 @@ use App\Models\Entidades\Produto;
 
 class ProdutoDAO extends BaseDAO
 {
-    public  function getById($id)
+    public function getById($id)
     {
         $resultado = $this->select(
-            "SELECT p.id as idProduto,
-                    p.nome as nomeProduto,
-                    p.preco,
-                    p.quantidade,
-                    p.descricao,
-                    f.id as idFornecedor,
-                    f.nome as nomeFornecedor,
-                    p.imagem
-                FROM produto as p INNER JOIN fornecedor as f ON p.idfornecedor = f.id
-                WHERE p.id = $id
-            "
+            "SELECT id, nome, marca, conteudo, valor, linkImagem FROM produtos WHERE idProduto = $id"
         );
 
-        $dataSetProdutos = $resultado->fetch();
+        $dataSetProduto = $resultado->fetch();
 
-        if($dataSetProdutos) {
+        if ($dataSetProduto) {
             $produto = new Produto();
-            $produto->setId($dataSetProdutos['idProduto']);
-            $produto->setNome($dataSetProdutos['nomeProduto']);
-            $produto->setPreco($dataSetProdutos['preco']);
-            $produto->setQuantidade($dataSetProdutos['quantidade']);
-            $produto->setDescricao($dataSetProdutos['descricao']);
-            $produto->getFornecedor()->setId($dataSetProdutos['idFornecedor']);
-            $produto->getFornecedor()->setNome($dataSetProdutos['nomeFornecedor']);
-            $produto->setImagem($dataSetProdutos['imagem']);
+            $produto->setId($dataSetProduto['idProduto']);
+            $produto->setNome($dataSetProduto['nome']);
+            $produto->setMarca($dataSetProduto['marca']);
+            $produto->setConteudo($dataSetProduto['conteudo']);
+            $produto->setPreco($dataSetProduto['valor']);
+            $produto->setImagem($dataSetProduto['linkImagem']);
 
             return $produto;
         }
@@ -48,85 +36,25 @@ class ProdutoDAO extends BaseDAO
         return $resultado->fetchAll(\PDO::FETCH_CLASS, Produto::class);
     }
 
-    public function listarPaginacao($busca = null, $totalPorPagina = 6, $paginaSelecionada = 1)
-    {
-        $inicio     = (($paginaSelecionada - 1) * $totalPorPagina);
-        $whereBusca = ($busca) ? "AND (p.nome LIKE '%$busca%' OR p.descricao LIKE '%$busca%')" : '';
-
-        $resultadoTotal = $this->select(
-            "SELECT count(*) as total 
-                FROM produto as p, fornecedor as f 
-                WHERE p.idfornecedor = f.id
-                {$whereBusca}"
-        );
-
-        $resultado = $this->select(
-            "SELECT p.id as idProduto,
-                    p.nome as nomeProduto,
-                    p.preco,
-                    p.quantidade,
-                    p.descricao,
-                    p.dataCadastro,
-                    f.id as idFornecedor,
-                    f.nome as nomeFornecedor,
-                    p.imagem
-                FROM produto as p, fornecedor as f
-                WHERE p.idfornecedor = f.id
-                {$whereBusca} 
-                LIMIT {$inicio}, {$totalPorPagina}"
-        );
-
-        $dataSetProdutos    = $resultado->fetchAll();
-        $totalLinhas        = $resultadoTotal->fetch()['total'];
-        $listaProdutos      = [];
-
-        if($dataSetProdutos) {
-
-            foreach($dataSetProdutos as $dataSetProduto) {
-                
-                $produto = new Produto();
-                $produto->setId($dataSetProduto['idProduto']);
-                $produto->setNome($dataSetProduto['nomeProduto']);
-                $produto->setPreco($dataSetProduto['preco']);
-                $produto->setQuantidade($dataSetProduto['quantidade']);
-                $produto->setDescricao($dataSetProduto['descricao']);
-                $produto->setDataCadastro($dataSetProduto['dataCadastro']);                        
-                $produto->getFornecedor()->setId($dataSetProduto['idFornecedor']);
-                $produto->getFornecedor()->setNome($dataSetProduto['nomeFornecedor']);
-                $produto->setImagem($dataSetProduto['imagem']);
-
-                $listaProdutos[] = $produto;
-            }
-            
-        }
-
-        return ['paginaSelecionada' => $paginaSelecionada,
-                'totalPorPagina'    => $totalPorPagina,
-                'totalLinhas'       => $totalLinhas,
-                'resultado'         => $listaProdutos];
-    }
 
     public function salvar(Produto $produto)
     {
         try {
-
-            $nome           = $produto->getNome();
-            $preco          = $produto->getPreco();
-            $quantidade     = $produto->getQuantidade();
-            $descricao      = $produto->getDescricao();
-            $idfornecedor   = $produto->getFornecedor()->getId();
-            $imagem         = $produto->getImagem();
+            $nome = $produto->getNome();
+            $marca = $produto->getMarca();
+            $conteudo = $produto->getConteudo();
+            $preco = $produto->getPreco();
+            $imagem = $produto->getImagem();
 
             return $this->insert(
-                'produto',
-                ":nome,:preco,:quantidade,:descricao,:idfornecedor,:imagem",
+                'produtos',
+                "nome, marca, conteudo, valor, linkImagem",
                 [
-                    ':nome'         =>$nome,
-                    ':preco'        =>$preco,
-                    ':quantidade'   =>$quantidade,
-                    ':descricao'    =>$descricao,
-                    ':idfornecedor' =>$idfornecedor,
-                    ':imagem'       =>$imagem
+                    ':nome' => $nome,
+                    ':marca' => $marca,
+                    ':conteudo' => $conteudo,
+                    ':valor' => $preco,
+                    ':linkImagem' => $imagem,
                 ]
             );
 
@@ -138,32 +66,29 @@ class ProdutoDAO extends BaseDAO
     public  function atualizar(Produto $produto)
     {
         try {
-
-            $id             = $produto->getId();
-            $nome           = $produto->getNome();
-            $preco          = $produto->getPreco();
-            $quantidade     = $produto->getQuantidade();
-            $descricao      = $produto->getDescricao();
-            $idfornecedor   = $produto->getFornecedor()->getId();
-            $imagem         = $produto->getImagem();
+            $id = $produto->getId();
+            $nome = $produto->getNome();
+            $marca = $produto->getMarca();
+            $conteudo = $produto->getConteudo();
+            $preco = $produto->getPreco();
+            $imagem = $produto->getImagem();
 
             return $this->update(
-                'produto',
-                "nome = :nome, preco = :preco, quantidade = :quantidade, descricao = :descricao, idfornecedor= :idfornecedor, imagem= :imagem",
+                'produtos',
+                "nome = :nome, marca = :marca, conteudo = :conteudo, valor = :valor, linkImagem = :linkImagem",
                 [
-                    ':id'           =>$id,
-                    ':nome'         =>$nome,
-                    ':preco'        =>$preco,
-                    ':quantidade'   =>$quantidade,
-                    ':descricao'    =>$descricao,
-                    ':idfornecedor' =>$idfornecedor,
-                    ':imagem'       =>$imagem
+                    ':idProduto' => $id,
+                    ':nome' => $nome,
+                    ':marca' => $marca,
+                    ':conteudo' => $conteudo,
+                    ':valor' => $preco,
+                    ':linkImagem' => $imagem,
                 ],
-                "id = :id"
+                "idProduto = :idProduto"
             );
 
         }catch (\Exception $e){
-            throw new \Exception("Erro na gravação de dados." . $e->getMessage(), 500);
+            throw new \Exception("Erro na atualização dos dados." . $e->getMessage(), 500);
         }
     }
 
@@ -185,23 +110,16 @@ class ProdutoDAO extends BaseDAO
             );
 
         }catch (\Exception $e){
-            throw new \Exception("Erro na gravação de dados." . $e->getMessage(), 500);
+            throw new \Exception("Erro na atualização dos dados." . $e->getMessage(), 500);
         }
     }
 
-    public function excluir(Produto $produto)
+    public function excluir(int $id)
     {
         try {
-
-            $id = $produto->getId();
-            $file = 'public/images/produtos/'.$produto->getImagem();
-
-            if (file_exists($file)) unlink($file);
-
-            return $this->delete('produto',"id = $id");
-
-        }catch (\Exception $e){
-            throw new \Exception("Erro ao deletar" . $e->getMessage(), 500);
+            return $this->delete('produtos', "idProduto = $id");
+        } catch (\Exception $e) {
+            throw new \Exception("Erro ao excluir o produto" . $e->getMessage(), 500);
         }
     }
 }

@@ -27,6 +27,7 @@ class UsuarioDAO extends BaseDAO
             $username  = $usuario->getUsername();
             $password  = $usuario->getPassword();
             $tipo      = $usuario->getTipo();
+            $data_cadastro = $usuario->getData_cadastro();
 
             return $this->insert(
                 'usuario',
@@ -36,7 +37,8 @@ class UsuarioDAO extends BaseDAO
                     ':email'    =>$email,
                     ':username' =>$username,
                     ':password' =>$password,
-                    ':tipo'     =>$tipo
+                    ':tipo'     =>$tipo,
+                    ':data_cadastro' => $data_cadastro
                 ]
             );
 
@@ -54,19 +56,20 @@ class UsuarioDAO extends BaseDAO
             $email      = $usuario->getEmail();
             $username   = $usuario->getUsername();
             $password   = $usuario->getPassword();
-            $tipo       = $usuario->getTipo();            
+            $tipo       = $usuario->getTipo();
+            $data_cadastro = $usuario->getData_cadastro();            
 
             return $this->update(
                 'usuario', 
-                "nome = :nome, email = :email, username = :username, password = :password, tipo = :tipo", 
-                
+                'nome = :nome, email = :email, username = :username, password = :password, tipo = :tipo, data_cadastro = :data_cadastro',                
                 [
                     ':id'       =>$id, 
                     ':nome'     =>$nome, 
                     ':email'    =>$email,
                     ':username' =>$username,
                     ':password' =>$password,
-                    ':tipo'     =>$tipo
+                    ':tipo'     =>$tipo,
+                    ':data_cadastro' => $data_cadastro
                 ], 
                 "id = :id"
             );
