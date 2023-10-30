@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="public/css/style.css">
+<link href="http://<?php echo APP_HOST; ?>/public/css/style.css" rel="stylesheet">
 <nav class="navbar navbar-expand-lg bg-verde" data-bs-theme="dark">
     <div class="container-fluid">
     <img src="http://<?= APP_HOST ?>/public/images/logo.png" style="width: 45px;" alt="logo">
@@ -39,8 +39,7 @@
                             <ul class="dropdown-menu dropdown-menu-right">  
                                 <li><a class="dropdown-item" href="http://<?= APP_HOST.'/login/dashboard' ?>">Dashboard</a></li>
                                 <li><a class="dropdown-item" href="http://<?= APP_HOST ?>/usuario">Usuários</a></li>                
-                                <li><a class="dropdown-item" href="http://<?= APP_HOST ?>/produto">Produtos</a></li>
-                                <li><a class="dropdown-item" href="http://<?= APP_HOST ?>/fornecedor">Fornecedores</a></li>               
+                                <li><a class="dropdown-item" href="http://<?= APP_HOST ?>/produto">Produtos</a></li>             
                                 <li><hr class="dropdown-divider"></li>
                                 <li><a class="dropdown-item" href="http://<?= APP_HOST.'/login/logout' ?>">
                                     <span class="glyphicon glyphicon-log-out"></span>&nbsp;Logout</a>
@@ -53,3 +52,5 @@
         </div>
     </div>
 </nav>
+<br>
+

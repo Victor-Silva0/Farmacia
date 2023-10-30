@@ -41,23 +41,23 @@
 
             <div class="table-responsive">
                 <table class="table table-bordered table-hover">
-                    <tr class="table-success" style="font-weight: bold">
+                    <tr class="table-secondary" style="font-weight: bold">
                         <td class="info">Nome</td>
-                        <td class="info hidden-sm hidden-xs" style="width:10%">Preço</td>
-                        <td class="info hidden-sm hidden-xs" style="width:10%">Quantidade</td>
-                        <td class="info hidden-sm hidden-xs" style="width:15%">Fornecedor</td>
+                        <td class="info hidden-sm hidden-xs" style="width:10%">Marca</td>
+                        <td class="info hidden-sm hidden-xs" style="width:10%">Conteúdo</td>
+                        <td class="info hidden-sm hidden-xs" style="width:15%">Valor</td>
                         <td class="info hidden-sm hidden-xs text-center" style="width:10%">Imagem</td>
-                        <td class="info hidden-sm hidden-xs" style="width:12%">Data Cadastro</td>
                         <td class="info text-center" style="width:15%">Ação</td>
                     </tr>
                     <?php foreach($viewVar['listaProdutos'] as $produto) { ?>
-                        <tr>
+                        <tr class="table-light">
                             <td><?= $produto->getNome() ?></td>
-                            <td>R$ <?= number_format($produto->getPreco(),2,",",".") ?></td>
-                            <td><?= $produto->getQuantidade() ?></td>
-                            <td><?= $produto->getFornecedor()->getNome() ?></td>
-                            <td class="text-center"><?php if ($produto->getImagem()) { ?><span class="glyphicon glyphicon-ok" aria-hidden="true"></span><?php } ?></td>
-                            <td><?= $produto->getDataCadastro()->format('d/m/Y H:i') ?></td>
+                            <td><?= $produto->getMarca() ?></td>
+                            <td><?= $produto->getConteudo() ?></td>
+                            <td>R$ <?= number_format($produto->getValor(),2,",",".") ?></td>
+                            <td class="text-center"><?php if ($produto->getImagem()) { ?>
+                            <img src="http://<?php echo APP_HOST; ?>/public/images/<?= $produto->getImagem() ?>" alt="imagem" style="width:60%">
+                            <?php } ?></td>
                             <td>
                                 <a href="http://<?= APP_HOST ?>/produto/edicao/<?= $produto->getId() ?><?php echo $viewVar['queryString']; ?>" class="btn btn-info btn-sm"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Editar </a>
                                 <a href="http://<?= APP_HOST ?>/produto/exclusao/<?= $produto->getId() ?><?php echo $viewVar['queryString']; ?>" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Excluir </a>

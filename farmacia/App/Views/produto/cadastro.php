@@ -16,27 +16,18 @@
             </div>
             <br />
             <div class="form-group">
-                <label for="preco">Preço</label>
-                R$ <input type="text" class="form-control" name="preco" placeholder="0" value="<?php echo $Sessao::retornaValorFormulario('preco'); ?>" required>
+                <label for="nome">Marca</label>
+                <input type="text" class="form-control" name="marca" placeholder="Marca do Produto" value="<?php echo $Sessao::retornaValorFormulario('marca'); ?>" required>
             </div>
             <br />
             <div class="form-group">
-                <label for="quantidade">Quantidade</label>
-                <input type="number" class="form-control" name="quantidade" placeholder="0" value="<?php echo $Sessao::retornaValorFormulario('quantidade'); ?> " required>
+                <label for="nome">Conteúdo</label>
+                <input type="text" class="form-control" name="conteudo" placeholder="Conteúdo do Produto" value="<?php echo $Sessao::retornaValorFormulario('conteudo'); ?>" required>
             </div>
             <br />
             <div class="form-group">
-                <label for="descricao">Descrição</label>
-                <textarea class="form-control" name="descricao" placeholder="Descrição do produto" required><?php echo $Sessao::retornaValorFormulario('descricao'); ?></textarea>
-            </div>
-            <br />
-            <div class="form-group">
-                <label for="idfornecedor">Fornecedor</label>
-                <select class="form-control" name="idfornecedor" required>
-                    <?php foreach($viewVar['listaFornecedores'] as $fornecedor) { ?>
-                        <option value="<?= $fornecedor->getId() ?>"><?= $fornecedor->getNome() ?></option>
-                    <?php } ?>
-                </select>
+                <label for="preco">Valor</label>
+                R$ <input type="text" class="form-control" name="valor" placeholder="0" value="<?php echo $Sessao::retornaValorFormulario('valor'); ?>" required>
             </div>
             <br />
             <div class="form-group">

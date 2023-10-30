@@ -34,7 +34,7 @@ class Paginacao
                            ( $this->paginaSelecionada - 1 ) . $queryString . '">&laquo; Anterior </a>';
         $html         .= '</li>';
 
-        $html         .= "<li class='page-item active'><a>".$this->paginaSelecionada." de ".$quantidadePagina."</a></li>";
+        $html         .= "<li class='page-item active'><a>ㅤㅤ".$this->paginaSelecionada." de ".$quantidadePagina."ㅤㅤ</a></li>";
 
         $desabilita    = ( $this->paginaSelecionada == $quantidadePagina ) ? "disabled" : "";
         $html         .= "<li class='page-item  $desabilita  '>";
