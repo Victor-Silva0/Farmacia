@@ -9,7 +9,7 @@
         <?php } ?>    
 
         <form action="http://<?php echo APP_HOST; ?>/produto/atualizar" method="post" id="form_cadastro" enctype="multipart/form-data">
-            <input type="hidden" class="form-control" name="id" id="id" value="<?php echo $viewVar['produto']->getId(); ?>">
+            <input type="hidden" class="form-control" name="idProduto" id="idProduto" value="<?php echo $viewVar['produto']->getId(); ?>">
             <br />
             <div class="form-group">
                 <label for="nome">Nome</label>

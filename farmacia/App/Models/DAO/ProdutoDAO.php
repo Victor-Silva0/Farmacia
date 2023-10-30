@@ -126,7 +126,8 @@ class ProdutoDAO extends BaseDAO
             $valor = $produto->getValor();
             $imagem = $produto->getImagem();
 
-            return $this->update('produtos',
+            return $this->update(
+            'produtos',
             "nome = :nome, marca = :marca, conteudo = :conteudo, valor = :valor, imagem = :imagem",
             [
                 ':idProduto'     =>$id,
