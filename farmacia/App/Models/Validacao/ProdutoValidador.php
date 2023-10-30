@@ -16,9 +16,9 @@ class ProdutoValidador{
             $resultadoValidacao->addErro('nome',"Nome: Este campo não pode ser vazio");
         }
 
-        if(empty($produto->getValor()))
+        if(empty($produto->getMarca()))
         {
-            $resultadoValidacao->addErro('valor',"Valor: Este campo não pode ser vazio");
+            $resultadoValidacao->addErro('marca',"Marca: Este campo não pode ser vazio");
         }
 
         if(empty($produto->getConteudo()))
@@ -26,9 +26,9 @@ class ProdutoValidador{
             $resultadoValidacao->addErro('conteudo',"Conteudo: Este campo não pode ser vazio");
         }
 
-        if(empty($produto->getMarca()))
+        if(empty($produto->getValor()))
         {
-            $resultadoValidacao->addErro('marca',"Marca: Este campo não pode ser vazio");
+            $resultadoValidacao->addErro('valor',"Valor: Este campo não pode ser vazio");
         }
 
         return $resultadoValidacao;
