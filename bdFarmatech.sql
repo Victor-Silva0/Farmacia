@@ -1,168 +1,207 @@
--- MySQL Workbench Forward Engineering
+-- phpMyAdmin SQL Dump
+-- version 5.2.1
+-- https://www.phpmyadmin.net/
+--
+-- Host: 127.0.0.1
+-- Tempo de geração: 29/10/2023 às 23:43
+-- Versão do servidor: 10.4.28-MariaDB
+-- Versão do PHP: 8.2.4
 
-SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
-SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
-SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
-
--- -----------------------------------------------------
--- Schema dbFarmatech
--- -----------------------------------------------------
-DROP SCHEMA IF EXISTS `dbFarmatech` ;
-
--- -----------------------------------------------------
--- Schema dbFarmatech
--- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `dbFarmatech` DEFAULT CHARACTER SET utf8 ;
-USE `dbFarmatech` ;
-
--- -----------------------------------------------------
--- Table `dbFarmatech`.`produtos`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `dbFarmatech`.`produtos` ;
-
-CREATE TABLE IF NOT EXISTS `dbFarmatech`.`produtos` (
-  `idProduto` INT NOT NULL AUTO_INCREMENT,
-  `nome` VARCHAR(255) NULL,
-  `marca` VARCHAR(100) NULL,
-  `conteudo` VARCHAR(50) NULL,
-  `valor` FLOAT NULL,
-  `linkImagem` VARCHAR(50) NULL,
-  PRIMARY KEY (`idProduto`))
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `dbFarmatech`.`clientes`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `dbFarmatech`.`clientes` ;
-
-CREATE TABLE IF NOT EXISTS `dbFarmatech`.`clientes` (
-  `idCliente` INT NOT NULL,
-  `nome` VARCHAR(100) NULL,
-  `celular` VARCHAR(16) NULL,
-  `email` VARCHAR(45) NULL,
-  PRIMARY KEY (`idCliente`))
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `dbFarmatech`.`vendas`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `dbFarmatech`.`vendas` ;
-
-CREATE TABLE IF NOT EXISTS `dbFarmatech`.`vendas` (
-  `idVenda` INT NOT NULL,
-  `idCliente` INT NOT NULL,
-  `dhVenda` TIMESTAMP NULL DEFAULT current_timestamp(),
-  `valor` FLOAT NULL,
-  PRIMARY KEY (`idVenda`),
-  INDEX `fk_vendas_clientes1_idx` (`idCliente` ASC),
-  CONSTRAINT `fk_vendas_clientes1`
-    FOREIGN KEY (`idCliente`)
-    REFERENCES `dbFarmatech`.`clientes` (`idCliente`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `dbFarmatech`.`usuarios`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `dbFarmatech`.`usuarios` ;
-
-CREATE TABLE IF NOT EXISTS `dbFarmatech`.`usuarios` (
-  `idUsuario` INT NOT NULL AUTO_INCREMENT,
-  `nome` VARCHAR(100) NULL,
-  `email` VARCHAR(100) NULL,
-  `senha` VARCHAR(255) NULL,
-  PRIMARY KEY (`idUsuario`))
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `dbFarmatech`.`produtos_da_venda`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `dbFarmatech`.`produtos_da_venda` ;
-
-CREATE TABLE IF NOT EXISTS `dbFarmatech`.`produtos_da_venda` (
-  `idVenda` INT NOT NULL,
-  `idProduto` INT NOT NULL,
-  PRIMARY KEY (`idVenda`, `idProduto`),
-  INDEX `fk_produtos_da_venda_produtos1_idx` (`idProduto` ASC),
-  CONSTRAINT `fk_produtos_da_venda_vendas1`
-    FOREIGN KEY (`idVenda`)
-    REFERENCES `dbFarmatech`.`vendas` (`idVenda`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_produtos_da_venda_produtos1`
-    FOREIGN KEY (`idProduto`)
-    REFERENCES `dbFarmatech`.`produtos` (`idProduto`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
-SET SQL_MODE=@OLD_SQL_MODE;
-SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
-SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
-
--- -----------------------------------------------------
--- Data for table `dbFarmatech`.`produtos`
--- -----------------------------------------------------
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
-USE `dbFarmatech`;
-INSERT INTO `dbFarmatech`.`produtos` (`idProduto`, `nome`, `marca`, `conteudo`, `valor`, `linkImagem`) VALUES (1, 'Dipirona Monoidratada 500mg/ml Solução Gotas 10ml EMS Genérico', 'EMS', '10ml', 5.39, 'dipirona.png');
-INSERT INTO `dbFarmatech`.`produtos` (`idProduto`, `nome`, `marca`, `conteudo`, `valor`, `linkImagem`) VALUES (2, 'Novalgina Solução Oral Analgésico e Antitérmico Infantil 100ml', 'Novalgina', '100ml', 40.19, 'novalgina.png');
-INSERT INTO `dbFarmatech`.`produtos` (`idProduto`, `nome`, `marca`, `conteudo`, `valor`, `linkImagem`) VALUES (3, 'Antialérgico Allegra Pediátrico 6mg/ml Suspensão Oral 60ml com Seringa', 'Allegra', '60ml', 37.68, 'allegra.png');
-INSERT INTO `dbFarmatech`.`produtos` (`idProduto`, `nome`, `marca`, `conteudo`, `valor`, `linkImagem`) VALUES (4, 'Vick VapoRub Descongestionante Pomada 12g', 'Vick', '12g', 14.29, 'vick.png');
-INSERT INTO `dbFarmatech`.`produtos` (`idProduto`, `nome`, `marca`, `conteudo`, `valor`, `linkImagem`) VALUES (5, 'Solução Fisiológica 0,9% Needs 500ml', 'Needs', '500ml', 7.99, 'sorofisiologico.png');
+SET time_zone = "+00:00";
 
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Banco de dados: `dbfarmatech`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `clientes`
+--
+
+CREATE TABLE `clientes` (
+  `idCliente` int(11) NOT NULL,
+  `nome` varchar(100) DEFAULT NULL,
+  `celular` varchar(16) DEFAULT NULL,
+  `email` varchar(45) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Despejando dados para a tabela `clientes`
+--
+
+INSERT INTO `clientes` (`idCliente`, `nome`, `celular`, `email`) VALUES
+(1, 'Rafael Fernandes de Melo Lopes', '18981628848', 'rafael_lopes51@hotmail.com'),
+(2, 'Victor Amaral', '18999999999', 'victor@hotmail.com'),
+(3, 'Breno', '18999999999', 'breno@hotmail.com'),
+(4, 'Pedro', '18976548888', 'pedro@hotmail.com');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `produtos`
+--
+
+CREATE TABLE `produtos` (
+  `idProduto` int(11) NOT NULL,
+  `nome` varchar(255) DEFAULT NULL,
+  `marca` varchar(100) DEFAULT NULL,
+  `conteudo` varchar(50) DEFAULT NULL,
+  `valor` float DEFAULT NULL,
+  `imagem` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Despejando dados para a tabela `produtos`
+--
+
+INSERT INTO `produtos` (`idProduto`, `nome`, `marca`, `conteudo`, `valor`, `imagem`) VALUES
+(1, 'Dipirona Monoidratada 500mg/ml Solução Gotas 10ml EMS Genérico', 'EMS', '10ml', 5.39, 'dipirona.png'),
+(2, 'Novalgina Solução Oral Analgésico e Antitérmico Infantil 100ml', 'Novalgina', '100ml', 40.19, 'novalgina.png'),
+(3, 'Antialérgico Allegra Pediátrico 6mg/ml Suspensão Oral 60ml com Seringa', 'Allegra', '60ml', 37.68, 'allegra.png'),
+(4, 'Vick VapoRub Descongestionante Pomada 12g', 'Vick', '12g', 14.29, 'vick.png'),
+(5, 'Solução Fisiológica 0,9% Needs 500ml', 'Needs', '500ml', 7.99, 'sorofisiologico.png'),
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `produtos_da_venda`
+--
+
+CREATE TABLE `produtos_da_venda` (
+  `idVenda` int(11) NOT NULL,
+  `idProduto` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Despejando dados para a tabela `produtos_da_venda`
+--
+
+INSERT INTO `produtos_da_venda` (`idVenda`, `idProduto`) VALUES
+(1, 1),
+(1, 2),
+(2, 3),
+(2, 4);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `usuarios`
+--
+
+CREATE TABLE `usuarios` (
+  `idUsuario` int(11) NOT NULL,
+  `nome` varchar(100) DEFAULT NULL,
+  `email` varchar(100) DEFAULT NULL,
+  `senha` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Despejando dados para a tabela `usuarios`
+--
+
+INSERT INTO `usuarios` (`idUsuario`, `nome`, `email`, `senha`) VALUES
+(1, 'teste', 'teste@teste.com', '123456');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `vendas`
+--
+
+CREATE TABLE `vendas` (
+  `idVenda` int(11) NOT NULL,
+  `idCliente` int(11) NOT NULL,
+  `dhVenda` timestamp NULL DEFAULT current_timestamp(),
+  `valor` float DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Despejando dados para a tabela `vendas`
+--
+
+INSERT INTO `vendas` (`idVenda`, `idCliente`, `dhVenda`, `valor`) VALUES
+(1, 1, '0000-00-00 00:00:00', 100),
+(2, 2, '0000-00-00 00:00:00', 200);
+
+--
+-- Índices para tabelas despejadas
+--
+
+--
+-- Índices de tabela `clientes`
+--
+ALTER TABLE `clientes`
+  ADD PRIMARY KEY (`idCliente`);
+
+--
+-- Índices de tabela `produtos`
+--
+ALTER TABLE `produtos`
+  ADD PRIMARY KEY (`idProduto`);
+
+--
+-- Índices de tabela `produtos_da_venda`
+--
+ALTER TABLE `produtos_da_venda`
+  ADD PRIMARY KEY (`idVenda`,`idProduto`),
+  ADD KEY `fk_produtos_da_venda_produtos1_idx` (`idProduto`);
+
+--
+-- Índices de tabela `usuarios`
+--
+ALTER TABLE `usuarios`
+  ADD PRIMARY KEY (`idUsuario`);
+
+--
+-- Índices de tabela `vendas`
+--
+ALTER TABLE `vendas`
+  ADD PRIMARY KEY (`idVenda`),
+  ADD KEY `fk_vendas_clientes1_idx` (`idCliente`);
+
+--
+-- AUTO_INCREMENT para tabelas despejadas
+--
+
+--
+-- AUTO_INCREMENT de tabela `produtos`
+--
+ALTER TABLE `produtos`
+  MODIFY `idProduto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
+--
+-- AUTO_INCREMENT de tabela `usuarios`
+--
+ALTER TABLE `usuarios`
+  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- Restrições para tabelas despejadas
+--
+
+--
+-- Restrições para tabelas `produtos_da_venda`
+--
+ALTER TABLE `produtos_da_venda`
+  ADD CONSTRAINT `fk_produtos_da_venda_produtos1` FOREIGN KEY (`idProduto`) REFERENCES `produtos` (`idProduto`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_produtos_da_venda_vendas1` FOREIGN KEY (`idVenda`) REFERENCES `vendas` (`idVenda`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Restrições para tabelas `vendas`
+--
+ALTER TABLE `vendas`
+  ADD CONSTRAINT `fk_vendas_clientes1` FOREIGN KEY (`idCliente`) REFERENCES `clientes` (`idCliente`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 COMMIT;
 
-
--- -----------------------------------------------------
--- Data for table `dbFarmatech`.`clientes`
--- -----------------------------------------------------
-START TRANSACTION;
-USE `dbFarmatech`;
-INSERT INTO `dbFarmatech`.`clientes` (`idCliente`, `nome`, `celular`, `email`) VALUES (1, 'Rafael Fernandes de Melo Lopes', '18981628848', 'rafael_lopes51@hotmail.com');
-INSERT INTO `dbFarmatech`.`clientes` (`idCliente`, `nome`, `celular`, `email`) VALUES (2, 'Victor Amaral', '18999999999', 'victor@hotmail.com');
-INSERT INTO `dbFarmatech`.`clientes` (`idCliente`, `nome`, `celular`, `email`) VALUES (3, 'Breno', '18999999999', 'breno@hotmail.com');
-INSERT INTO `dbFarmatech`.`clientes` (`idCliente`, `nome`, `celular`, `email`) VALUES (4, 'Pedro', '18976548888', 'pedro@hotmail.com');
-
-COMMIT;
-
-
--- -----------------------------------------------------
--- Data for table `dbFarmatech`.`vendas`
--- -----------------------------------------------------
-START TRANSACTION;
-USE `dbFarmatech`;
-INSERT INTO `dbFarmatech`.`vendas` (`idVenda`, `idCliente`, `dhVenda`, `valor`) VALUES (1, 1, '', 100);
-INSERT INTO `dbFarmatech`.`vendas` (`idVenda`, `idCliente`, `dhVenda`, `valor`) VALUES (2, 2, '', 200);
-
-COMMIT;
-
-
--- -----------------------------------------------------
--- Data for table `dbFarmatech`.`usuarios`
--- -----------------------------------------------------
-START TRANSACTION;
-USE `dbFarmatech`;
-INSERT INTO `dbFarmatech`.`usuarios` (`idUsuario`, `nome`, `email`, `senha`) VALUES (1, 'teste', 'teste@teste.com', '123456');
-
-COMMIT;
-
-
--- -----------------------------------------------------
--- Data for table `dbFarmatech`.`produtos_da_venda`
--- -----------------------------------------------------
-START TRANSACTION;
-USE `dbFarmatech`;
-INSERT INTO `dbFarmatech`.`produtos_da_venda` (`idVenda`, `idProduto`) VALUES (1, 1);
-INSERT INTO `dbFarmatech`.`produtos_da_venda` (`idVenda`, `idProduto`) VALUES (1, 2);
-INSERT INTO `dbFarmatech`.`produtos_da_venda` (`idVenda`, `idProduto`) VALUES (2, 3);
-INSERT INTO `dbFarmatech`.`produtos_da_venda` (`idVenda`, `idProduto`) VALUES (2, 4);
-
-COMMIT;
-
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
