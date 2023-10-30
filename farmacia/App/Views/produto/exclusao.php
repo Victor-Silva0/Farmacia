@@ -9,37 +9,33 @@
         <?php } ?>   
 
         <form action="http://<?php echo APP_HOST; ?>/produto/excluir" method="post" id="form_cadastro">
-            <input type="hidden" class="form-control" name="id" id="id" value="<?= $viewVar['produto']->getId() ?>">
+            <input type="hidden" class="form-control" name="idProduto" id="idProduto" value="<?= $viewVar['produto']->getId() ?>">
             <br />
 
             <div class="form-group">
                 <label for="nome">Nome</label>
                 <input type="text"  class="form-control" name="nome" id="nome" value="<?= $viewVar['produto']->getNome() ?>" readonly>
             </div>
-
             <br />
             <div class="form-group">
-                <label for="preco">Preço</label>
-                <input type="text"  class="form-control"  name="preco" id="preco" value="<?= $viewVar['produto']->getPreco() ?>" readonly>
+                <label for="marca">Marca</label>
+                <input type="text"  class="form-control" name="marca" id="marca" placeholder="" value="<?php echo $viewVar['produto']->getMarca(); ?>" readonly>
             </div>
-
             <br />
             <div class="form-group">
-                <label for="quantidade">Quantidade</label>
-                <input type="number"  class="form-control"  name="quantidade" id="quantidade" value="<?= $viewVar['produto']->getQuantidade() ?>" readonly>
+                <label for="conteudo">Conteúdo</label>
+                <input type="text"  class="form-control" name="conteudo" id="conteudo" placeholder="" value="<?php echo $viewVar['produto']->getConteudo(); ?>" readonly>
             </div>
-
             <br />
             <div class="form-group">
-                <label for="descricao">Descrição</label>
-                <textarea class="form-control" name="descricao" placeholder="Descrição do produto" readonly><?= $viewVar['produto']->getDescricao() ?></textarea>
+                <label for="valor">Valor</label>
+                <input type="text"  class="form-control"  name="valor" id="valor" placeholder="" value="<?php echo $viewVar['produto']->getValor(); ?>" readonly>
             </div>
-
             <br />
             <div class="form-group">
                 <label for="imagem">Imagem</label>
                 <?php if ($viewVar['produto']->getImagem()) { ?>
-                    <p><img src="http://<?= APP_HOST ?>/public/images/produtos/<?= $viewVar['produto']->getImagem() ?>" width="200" class="img-fluid" alt="Imagem do produto" /></p>
+                    <p><img src="http://<?= APP_HOST ?>/public/images/<?= $viewVar['produto']->getImagem() ?>" width="200" class="img-fluid" alt="Imagem do produto" /></p>
                 <?php } ?>
                 <input type="text"  class="form-control" name="imagem" id="imagem" value="<?= $viewVar['produto']->getImagem() ?>" readonly>
             </div>
