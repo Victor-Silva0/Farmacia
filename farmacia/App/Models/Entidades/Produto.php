@@ -9,7 +9,7 @@ class Produto
     private $nome;
     private $marca;
     private $conteudo;
-    private $preco;
+    private $valor;
     private $imagem;
 
     public function getId()
@@ -51,14 +51,14 @@ class Produto
         $this->conteudo = $conteudo;
     }
 
-    public function getPreco()
+    public function getValor()
     {
-        return $this->preco;
+        return $this->valor;
     }
 
-    public function setPreco($preco)
+    public function setValor($valor)
     {
-        $this->preco = $preco;
+        $this->valor = $valor;
     }
 
     public function getImagem()
