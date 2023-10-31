@@ -1,5 +1,5 @@
 {
-    "name": "ptacca/mvc-exemplo",
+    "name": "/farmacia",
     "description": "Exemplo de MVC",
     "autoload": {
         "psr-4": {
@@ -8,8 +8,8 @@
     },
     "authors": [
         {
-            "name": "Paulo Tacca",
-            "email": "ptacca@gmail.com"
+            "name": "Breno, Rafael, Pedro, Victor",
+            "email": "aluno@gmail.com"
         }
     ],
     "require": {
