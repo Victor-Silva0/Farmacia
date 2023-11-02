@@ -1,0 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato&family=Montserrat&display=swap');
+
+.bg-verde {
+    background-color: #194d4d;
+}
+
+body {
+    background-color: #d8f2f3; 
+}
+
+nav {
+    margin-bottom: 20px;
+}
+
+footer {
+    margin-top: 20px;
+}
