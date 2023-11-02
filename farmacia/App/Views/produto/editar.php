@@ -9,7 +9,7 @@
         <?php } ?>    
 
         <form action="http://<?php echo APP_HOST; ?>/produto/atualizar" method="post" id="form_cadastro" enctype="multipart/form-data">
-            <input type="hidden" class="form-control" name="idProduto" id="idProduto" value="<?php echo $viewVar['produto']->getId(); ?>">
+            <input type="hidden" class="form-control" name="id" id="id" value="<?php echo $viewVar['produto']->getId(); ?>">
             <br />
             <div class="form-group">
                 <label for="nome">Nome</label>
@@ -17,18 +17,29 @@
             </div>
             <br />
             <div class="form-group">
-                <label for="marca">Marca</label>
-                <input type="text"  class="form-control" name="marca" id="marca" placeholder="" value="<?php echo $viewVar['produto']->getMarca(); ?>" required>
+                <label for="preco">Preço</label>
+                <input type="text"  class="form-control"  name="preco" id="preco" placeholder="" value="<?php echo $viewVar['produto']->getPreco(); ?>" required>
             </div>
             <br />
             <div class="form-group">
-                <label for="conteudo">Conteúdo</label>
-                <input type="text"  class="form-control" name="conteudo" id="conteudo" placeholder="" value="<?php echo $viewVar['produto']->getConteudo(); ?>" required>
+                <label for="quantidade">Quantidade</label>
+                <input type="number" class="form-control"  name="quantidade" id="quantidade" placeholder="" value="<?php echo $viewVar['produto']->getQuantidade(); ?>" required>
             </div>
             <br />
             <div class="form-group">
-                <label for="text">Valor</label>
-                <input type="number"  class="form-control"  name="valor" id="valor" placeholder="" value="<?php echo $viewVar['produto']->getValor(); ?>" required>
+                <label for="descricao">Descrição</label>
+                <textarea class="form-control" name="descricao" placeholder="Descrição do produto" required><?php echo $viewVar['produto']->getDescricao(); ?></textarea>
+            </div>
+            <br />
+            <div class="form-group">
+                <label for="idfornecedor">Fornecedor</label>
+                <select class="form-control" name="idfornecedor" required>
+                    <?php foreach($viewVar['listaFornecedores'] as $fornecedor) { ?>
+                        <option value="<?= $fornecedor->getId() ?>"
+                            <?= ($viewVar['produto']->getFornecedor()->getId() == $fornecedor->getId()) ? "selected" : ""; ?>>
+                            <?= $fornecedor->getNome() ?></option>
+                    <?php } ?>
+                </select>
             </div>
             <br />
             <div class="form-group">
@@ -38,7 +49,7 @@
                 <input type="file" class="form-control" id="imagem" name="imagem" accept="image/*">
                 <p class="help-block">JPG, PNG ou GIF.</p>
                 <?php if ($viewVar['produto']->getImagem()) { ?>
-                    <p><img id="foto" data-src="holder.js/180x180" src="http://<?= APP_HOST ?>/public/images/<?= $viewVar['produto']->getImagem() ?>" width="180" class="img-fluid" alt="Imagem do produto" /></p>
+                    <p><img id="foto" data-src="holder.js/180x180" src="http://<?= APP_HOST ?>/public/images/produtos/<?= $viewVar['produto']->getImagem() ?>" width="180" class="img-fluid" alt="Imagem do produto" /></p>
                     <p><button type="button" style="padding: 5px 5px;" onclick="excluirImagem()"> <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> </button>&nbsp;<?php echo $viewVar['produto']->getImagem(); ?></p>
                 <?php } else { ?>
                     <p><img id="foto" data-src="holder.js/180x180" src="" width="180" class="img-fluid" alt="Imagem do produto" /></p>

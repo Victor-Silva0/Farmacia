@@ -18,13 +18,13 @@ class App
         /*
          * Constantes do sistema
          */
-        define('APP_HOST'       , $_SERVER['HTTP_HOST'] . "/farmacia");
+        define('APP_HOST'       , $_SERVER['HTTP_HOST'] . "/mvc-exemplo");
         define('PATH'           , realpath('./'));
         define('TITLE'          , "Exemplo de Aplicação MVC em PHP - 2023");
         define('DB_HOST'        , "localhost");
         define('DB_USER'        , "root");
         define('DB_PASSWORD'    , "");
-        define('DB_NAME'        , "dbfarmatech");
+        define('DB_NAME'        , "exemplomvc");
         define('DB_DRIVER'      , "mysql");
 
         $this->url();

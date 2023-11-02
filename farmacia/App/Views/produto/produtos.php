@@ -1,5 +1,5 @@
 <div class="container">
-    <h1>Produtos</h1> 
+    <h1>Produtos em Estoque</h1> 
     <hr />
     <br />
     <div class="row">
@@ -9,13 +9,13 @@
                     <div class="row featurette">
                         <div class="col-md-7">
                             <h2 class="featurette-heading"><?= $produto->getNome() ?></h2>
-                            <h4><?= $produto->getConteudo() ?></h4>
+                            <p class="lead"><?= $produto->getDescricao() ?></p>
                             <br />
-                            <h4>Valor: R$ <?= number_format($produto->getValor(),2,",",".") ?></h4>
+                            <p class="lead">Preço: R$ <?= number_format($produto->getPreco(),2,",",".") ?></p>
                         </div>
                         <div class="col-md-5">
                             <figure class="figure">
-                                <img src="http://<?= APP_HOST ?>/public/images/<?= $produto->getImagem() ?>" width="100" class="figure-img img-fluid rounded" alt="Imagem do produto" />
+                                <img src="http://<?= APP_HOST ?>/public/images/produtos/<?= $produto->getImagem() ?>" width="240" class="figure-img img-fluid rounded" alt="Imagem do produto" />
                             </figure>
                         </div>
                     </div>

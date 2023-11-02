@@ -2,27 +2,38 @@
 
 namespace App\Models\DAO;
 
-use App\Models\Entidades\Produto;
+use App\Models\Entidades\Produto; 
 
-
-class ProdutoDAO extends BaseDAO 
+class ProdutoDAO extends BaseDAO
 {
-    public function getById ($id)
+    public  function getById($id)
     {
-        $resultado = $this->select("SELECT * FROM produtos WHERE idProduto = $id
-        "
-    );
+        $resultado = $this->select(
+            "SELECT p.id as idProduto,
+                    p.nome as nomeProduto,
+                    p.preco,
+                    p.quantidade,
+                    p.descricao,
+                    f.id as idFornecedor,
+                    f.nome as nomeFornecedor,
+                    p.imagem
+                FROM produto as p INNER JOIN fornecedor as f ON p.idfornecedor = f.id
+                WHERE p.id = $id
+            "
+        );
 
-    $dataSetProdutos = $resultado->fetch();
+        $dataSetProdutos = $resultado->fetch();
 
         if($dataSetProdutos) {
             $produto = new Produto();
-                $produto->setId($dataSetProdutos['idProduto']);
-                $produto->setNome($dataSetProdutos['nome']);
-                $produto->setMarca($dataSetProdutos['marca']);
-                $produto->setConteudo($dataSetProdutos['conteudo']);
-                $produto->setValor($dataSetProdutos['valor']);                        
-                $produto->setImagem($dataSetProdutos['imagem']);
+            $produto->setId($dataSetProdutos['idProduto']);
+            $produto->setNome($dataSetProdutos['nomeProduto']);
+            $produto->setPreco($dataSetProdutos['preco']);
+            $produto->setQuantidade($dataSetProdutos['quantidade']);
+            $produto->setDescricao($dataSetProdutos['descricao']);
+            $produto->getFornecedor()->setId($dataSetProdutos['idFornecedor']);
+            $produto->getFornecedor()->setNome($dataSetProdutos['nomeFornecedor']);
+            $produto->setImagem($dataSetProdutos['imagem']);
 
             return $produto;
         }
@@ -30,32 +41,37 @@ class ProdutoDAO extends BaseDAO
         return false;
     }
 
-    public function listar ()
+    public function listar()
     {
-        $resultado = $this->select("SELECT * FROM produtos");
+        $resultado = $this->select("SELECT * FROM produto");
 
         return $resultado->fetchAll(\PDO::FETCH_CLASS, Produto::class);
     }
 
     public function listarPaginacao($busca = null, $totalPorPagina = 6, $paginaSelecionada = 1)
     {
-        $inicio = (($paginaSelecionada - 1) * $totalPorPagina);
-        $busca = trim($busca);
-        $whereBusca = ''; 
-    
-        if (!empty($busca)) {
-            $whereBusca = "WHERE nome LIKE '%$busca%' OR marca LIKE '%$busca%'";
-        }
+        $inicio     = (($paginaSelecionada - 1) * $totalPorPagina);
+        $whereBusca = ($busca) ? "AND (p.nome LIKE '%$busca%' OR p.descricao LIKE '%$busca%')" : '';
 
         $resultadoTotal = $this->select(
             "SELECT count(*) as total 
-                FROM produtos
+                FROM produto as p, fornecedor as f 
+                WHERE p.idfornecedor = f.id
                 {$whereBusca}"
         );
 
         $resultado = $this->select(
-            "SELECT *
-                FROM produtos
+            "SELECT p.id as idProduto,
+                    p.nome as nomeProduto,
+                    p.preco,
+                    p.quantidade,
+                    p.descricao,
+                    p.dataCadastro,
+                    f.id as idFornecedor,
+                    f.nome as nomeFornecedor,
+                    p.imagem
+                FROM produto as p, fornecedor as f
+                WHERE p.idfornecedor = f.id
                 {$whereBusca} 
                 LIMIT {$inicio}, {$totalPorPagina}"
         );
@@ -70,10 +86,13 @@ class ProdutoDAO extends BaseDAO
                 
                 $produto = new Produto();
                 $produto->setId($dataSetProduto['idProduto']);
-                $produto->setNome($dataSetProduto['nome']);
-                $produto->setMarca($dataSetProduto['marca']);
-                $produto->setConteudo($dataSetProduto['conteudo']);
-                $produto->setValor($dataSetProduto['valor']);                        
+                $produto->setNome($dataSetProduto['nomeProduto']);
+                $produto->setPreco($dataSetProduto['preco']);
+                $produto->setQuantidade($dataSetProduto['quantidade']);
+                $produto->setDescricao($dataSetProduto['descricao']);
+                $produto->setDataCadastro($dataSetProduto['dataCadastro']);                        
+                $produto->getFornecedor()->setId($dataSetProduto['idFornecedor']);
+                $produto->getFornecedor()->setNome($dataSetProduto['nomeFornecedor']);
                 $produto->setImagem($dataSetProduto['imagem']);
 
                 $listaProdutos[] = $produto;
@@ -87,61 +106,64 @@ class ProdutoDAO extends BaseDAO
                 'resultado'         => $listaProdutos];
     }
 
-    
-
     public function salvar(Produto $produto)
     {
         try {
 
-            $nome = $produto->getNome();
-            $marca = $produto->getMarca();
-            $conteudo = $produto->getConteudo();
-            $valor = $produto->getValor();
-            $imagem = $produto->getImagem();
+            $nome           = $produto->getNome();
+            $preco          = $produto->getPreco();
+            $quantidade     = $produto->getQuantidade();
+            $descricao      = $produto->getDescricao();
+            $idfornecedor   = $produto->getFornecedor()->getId();
+            $imagem         = $produto->getImagem();
 
-            return $this->insert('produtos',
-            ":nome,:marca,:conteudo,:valor,:imagem",
-            [
-                ':nome'         =>$nome,
-                ':marca'        =>$marca,
-                ':conteudo'   =>$conteudo,
-                ':valor'    =>$valor,
-                ':imagem' =>$imagem
-            ]
-        );
-            
-        }catch (\Exception $e) {
-            throw new \Exception("Erro na gravação dos dados. " . $e->getMessage(), 500);
+            return $this->insert(
+                'produto',
+                ":nome,:preco,:quantidade,:descricao,:idfornecedor,:imagem",
+                [
+                    ':nome'         =>$nome,
+                    ':preco'        =>$preco,
+                    ':quantidade'   =>$quantidade,
+                    ':descricao'    =>$descricao,
+                    ':idfornecedor' =>$idfornecedor,
+                    ':imagem'       =>$imagem
+                ]
+            );
+
+        }catch (\Exception $e){
+            throw new \Exception("Erro na gravação de dados." . $e->getMessage(), 500);
         }
     }
 
-    public function atualizar(Produto $produto)
+    public  function atualizar(Produto $produto)
     {
         try {
 
-            $id = $produto->getId();
-            $nome = $produto->getNome();
-            $marca = $produto->getMarca();
-            $conteudo = $produto->getConteudo();
-            $valor = $produto->getValor();
-            $imagem = $produto->getImagem();
+            $id             = $produto->getId();
+            $nome           = $produto->getNome();
+            $preco          = $produto->getPreco();
+            $quantidade     = $produto->getQuantidade();
+            $descricao      = $produto->getDescricao();
+            $idfornecedor   = $produto->getFornecedor()->getId();
+            $imagem         = $produto->getImagem();
 
             return $this->update(
-            'produtos',
-            "nome = :nome, marca = :marca, conteudo = :conteudo, valor = :valor, imagem = :imagem",
-            [
-                ':idProduto'     =>$id,
-                ':nome'         =>$nome,
-                ':marca'        =>$marca,
-                ':conteudo'   =>$conteudo,
-                ':valor'    =>$valor,
-                ':imagem' =>$imagem
-            ],
-            "idProduto = :idProduto"
-        );
-            
-        } catch (\Exception $e) {
-            throw new \Exception("Erro na atualização dos dados. " . $e->getMessage(), 500);
+                'produto',
+                "nome = :nome, preco = :preco, quantidade = :quantidade, descricao = :descricao, idfornecedor= :idfornecedor, imagem= :imagem",
+                [
+                    ':id'           =>$id,
+                    ':nome'         =>$nome,
+                    ':preco'        =>$preco,
+                    ':quantidade'   =>$quantidade,
+                    ':descricao'    =>$descricao,
+                    ':idfornecedor' =>$idfornecedor,
+                    ':imagem'       =>$imagem
+                ],
+                "id = :id"
+            );
+
+        }catch (\Exception $e){
+            throw new \Exception("Erro na gravação de dados." . $e->getMessage(), 500);
         }
     }
 
@@ -153,13 +175,13 @@ class ProdutoDAO extends BaseDAO
             $imagem         = $produto->getImagem();
 
             return $this->update(
-                'produtos',
+                'produto',
                 "imagem= :imagem",
                 [
-                    ':idProduto'           =>$id,
+                    ':id'           =>$id,
                     ':imagem'       =>$imagem
                 ],
-                "idProduto = :idProduto"
+                "id = :id"
             );
 
         }catch (\Exception $e){
@@ -172,15 +194,14 @@ class ProdutoDAO extends BaseDAO
         try {
 
             $id = $produto->getId();
-            $file = 'public/images/'.$produto->getImagem();
+            $file = 'public/images/produtos/'.$produto->getImagem();
 
             if (file_exists($file)) unlink($file);
 
-            return $this->delete('produtos',"idProduto = $id");
+            return $this->delete('produto',"id = $id");
 
         }catch (\Exception $e){
             throw new \Exception("Erro ao deletar" . $e->getMessage(), 500);
         }
     }
-
 }

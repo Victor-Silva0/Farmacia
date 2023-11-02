@@ -2,15 +2,24 @@
 
 namespace App\Models\Entidades;
 
+use DateTime;
+use App\Models\Entidades\Fornecedor;
 
 class Produto
 {
     private $id;
     private $nome;
-    private $marca;
-    private $conteudo;
-    private $valor;
+    private $preco;
+    private $quantidade;
+    private $descricao;
+    private $dataCadastro;
     private $imagem;
+    private Fornecedor $fornecedor;
+
+    public function __construct()
+    {
+        $this->fornecedor = new Fornecedor();        
+    }
 
     public function getId()
     {
@@ -31,34 +40,55 @@ class Produto
     {
         $this->nome = $nome;
     }
-    public function getMarca()
+
+    public function getPreco()
     {
-        return $this->marca;
+        return $this->preco;
     }
 
-    public function setMarca($marca)
+    public function setPreco($preco)
     {
-        $this->marca = $marca;
+        $this->preco = $preco;
     }
 
-    public function getConteudo()
+    public function getQuantidade()
     {
-        return $this->conteudo;
+        return $this->quantidade;
     }
 
-    public function setConteudo($conteudo)
+    public function setQuantidade($quantidade)
     {
-        $this->conteudo = $conteudo;
+        $this->quantidade = $quantidade;
     }
 
-    public function getValor()
+    public function getDescricao()
     {
-        return $this->valor;
+        return $this->descricao;
     }
 
-    public function setValor($valor)
+    public function setDescricao($descricao)
     {
-        $this->valor = $valor;
+        $this->descricao = $descricao;
+    }
+
+    public function getDataCadastro()
+    {
+        return new DateTime($this->dataCadastro);
+    }
+
+    public function setDataCadastro($dataCadastro)
+    {
+        $this->dataCadastro = $dataCadastro;
+    }
+
+    public function getFornecedor()
+    {
+        return $this->fornecedor;
+    }
+
+    public function setFornecedor(Fornecedor $fornecedor)
+    {
+        $this->fornecedor = $fornecedor;
     }
 
     public function getImagem()

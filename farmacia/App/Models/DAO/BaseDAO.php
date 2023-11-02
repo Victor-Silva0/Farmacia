@@ -27,10 +27,13 @@ abstract class BaseDAO
         {
             $parametros    = $cols;
             $colunas       = str_replace(":", "", $cols);
-
+            /*
+                INSERT INTO usuario (nome,email) VALUES (:nome,:email);
+            */
             $stmt = $this->conexao->prepare("INSERT INTO $table ($colunas) VALUES ($parametros)");
             $stmt->execute($values);
 
+            //return $stmt->rowCount();
             return $this->conexao->lastInsertId();
         }else{
             return false;
@@ -59,6 +62,9 @@ abstract class BaseDAO
     {
         if(!empty($table))
         {
+            /*
+                DELETE usuario WHERE id = 1
+            */
 
             if($where)
             {
