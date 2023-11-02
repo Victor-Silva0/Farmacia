@@ -167,6 +167,14 @@ class ProdutoDAO extends BaseDAO
         }
     }
 
+    public function produtoEmVenda($idProduto)
+    {
+        $sql = "SELECT * FROM produtos_da_venda WHERE idProduto = " . (int)$idProduto;
+        $resultado = $this->select($sql);
+        
+        return $resultado->rowCount() > 0; 
+    }
+    
     public function excluir(Produto $produto)
     {
         try {
