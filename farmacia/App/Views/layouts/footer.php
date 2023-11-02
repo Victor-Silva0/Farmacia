@@ -1,4 +1,4 @@
-<p>&nbsp;</p>
+
 <footer class="text-center text-white" style="background-color: #133a3a; font-family: 'Montserrat', sans-serif;" >
     <p>&nbsp;</p>
     <p><a class="text-white" href="#">Subir</a></p>
