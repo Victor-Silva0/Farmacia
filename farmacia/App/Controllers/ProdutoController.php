@@ -203,6 +203,11 @@ class ProdutoController extends Controller
 
         $produto = $produtoDAO->getById($id);
 
+            if ($produtoDAO->produtoEmVenda($produto->getId())) {
+        Sessao::gravaMensagem("O produto '{$produto->getNome()}' está em uma venda e não pode ser excluído no momento.");
+        $this->redirect('/produto');
+    }
+
         if (!$produto) {
             Sessao::gravaMensagem("Produto (idProduto:{$id}) inexistente.");
             $this->redirect('/produto');
