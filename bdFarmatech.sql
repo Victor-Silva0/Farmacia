@@ -71,15 +71,15 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `dbFarmatech`.`usuario` ;
 
 CREATE TABLE IF NOT EXISTS `dbFarmatech`.`usuario` (
-  `idUsuario` INT NOT NULL AUTO_INCREMENT,
-  `nome` VARCHAR(100) NULL,
-  `email` VARCHAR(100) NULL,
-  `nomeusuario` VARCHAR(45) NULL,
-  `senha` VARCHAR(255) NULL,
-  `tipo` VARCHAR(20) NULL,
-  `dhcadastro` TIMESTAMP NULL DEFAULT current_timestamp(),
-  PRIMARY KEY (`idUsuario`))
-ENGINE = InnoDB;
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nome` varchar(100) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `username` varchar(50) DEFAULT NULL,
+  `password` varchar(255) DEFAULT NULL,
+  `tipo` varchar(10) NOT NULL,
+  `data_cadastro` datetime NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 
 -- -----------------------------------------------------
@@ -150,11 +150,6 @@ COMMIT;
 -- -----------------------------------------------------
 -- Data for table `dbFarmatech`.`usuario`
 -- -----------------------------------------------------
-START TRANSACTION;
-USE `dbFarmatech`;
-INSERT INTO `dbFarmatech`.`usuario` (`idUsuario`, `nome`, `email`, `nomeusuario`, `senha`, `tipo`, `dhcadastro`) VALUES (1, 'teste', 'teste@teste.com', NULL, '123456', NULL, NULL);
-
-COMMIT;
 
 
 -- -----------------------------------------------------
