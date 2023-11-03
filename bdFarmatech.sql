@@ -66,11 +66,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `dbFarmatech`.`usuarios`
+-- Table `dbFarmatech`.`usuario`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `dbFarmatech`.`usuarios` ;
+DROP TABLE IF EXISTS `dbFarmatech`.`usuario` ;
 
-CREATE TABLE IF NOT EXISTS `dbFarmatech`.`usuarios` (
+CREATE TABLE IF NOT EXISTS `dbFarmatech`.`usuario` (
   `idUsuario` INT NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(100) NULL,
   `email` VARCHAR(100) NULL,
@@ -148,11 +148,11 @@ COMMIT;
 
 
 -- -----------------------------------------------------
--- Data for table `dbFarmatech`.`usuarios`
+-- Data for table `dbFarmatech`.`usuario`
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `dbFarmatech`;
-INSERT INTO `dbFarmatech`.`usuarios` (`idUsuario`, `nome`, `email`, `nomeusuario`, `senha`, `tipo`, `dhcadastro`) VALUES (1, 'teste', 'teste@teste.com', NULL, '123456', NULL, NULL);
+INSERT INTO `dbFarmatech`.`usuario` (`idUsuario`, `nome`, `email`, `nomeusuario`, `senha`, `tipo`, `dhcadastro`) VALUES (1, 'teste', 'teste@teste.com', NULL, '123456', NULL, NULL);
 
 COMMIT;
 
