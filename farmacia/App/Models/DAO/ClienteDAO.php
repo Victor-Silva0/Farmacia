@@ -72,7 +72,7 @@ class ClienteDAO extends BaseDAO
             $celular = $cliente->getCelular();
             $email = $cliente->getEmail();
 
-            return $this->update('clientes', "nome = :nome, celular = :celular, email = :email", [':id'=>$id, ':nome'=>$nome, ':celular'=>$celular, ':email'=>$email], "id = :id");
+            return $this->update('clientes', "nome = :nome, celular = :celular, email = :email", [':id'=>$id, ':nome'=>$nome, ':celular'=>$celular, ':email'=>$email], "idCliente = :id");
             
         } catch (\Exception $e) {
             throw new \Exception("Erro na atualização dos dados. " . $e->getMessage(), 500);
