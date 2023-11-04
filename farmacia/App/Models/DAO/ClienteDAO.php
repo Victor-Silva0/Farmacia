@@ -17,7 +17,24 @@ class ClienteDAO extends BaseDAO
     {
         $resultado = $this->select("SELECT * FROM clientes");
 
-        return $resultado->fetchAll(\PDO::FETCH_CLASS, Clientes::class);
+        $dataSetClientes = $resultado->fetchAll();
+
+        $listaClientes = [];
+        
+        if($dataSetClientes) {
+
+            foreach($dataSetClientes as $dataSetCliente) {
+                
+                $cliente = new Clientes();
+                $cliente->setId($dataSetCliente['idCliente']);
+                $cliente->setNome($dataSetCliente['nome']);
+                $cliente->setCelular($dataSetCliente['celular']);
+                $cliente->setEmail($dataSetCliente['email']);
+                $listaClientes[] = $cliente;
+            }
+        }
+
+        return $listaClientes;
     }
 
     public function getQuantidadeVendas($id)
