@@ -15,7 +15,8 @@ class ClienteController extends Controller
 
         $clienteDAO = new ClienteDAO();
 
-        self::setViewParam('listaClientes', $clienteDAO->listar());
+        $resultado = $clienteDAO->listar();
+        self::setViewParam('listaClientes', $resultado);
 
         $this->render('/cliente/index');
 
