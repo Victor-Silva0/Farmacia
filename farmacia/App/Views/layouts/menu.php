@@ -39,6 +39,7 @@
                                 <li><a class="dropdown-item" href="http://<?= APP_HOST ?>/usuario">Usuários</a></li>                
                                 <li><a class="dropdown-item" href="http://<?= APP_HOST ?>/produto">Produtos</a></li>             
                                 <li><a class="dropdown-item" href="http://<?= APP_HOST ?>/cliente">Clientes</a></li>
+                                <li><a class="dropdown-item" href="http://<?= APP_HOST ?>/venda">Vendas</a></li>
                                 <li><hr class="dropdown-divider"></li>
                                 <li><a class="dropdown-item" href="http://<?= APP_HOST.'/login/logout' ?>">
                                     <span class="glyphicon glyphicon-log-out"></span>&nbsp;Logout</a>
