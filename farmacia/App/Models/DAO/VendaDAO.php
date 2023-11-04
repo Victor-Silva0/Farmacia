@@ -8,31 +8,58 @@ class VendaDAO extends BaseDAO
 {
     public function getById($id)
     {
-        $resultado = $this->select("SELECT * FROM vendas WHERE id = $id");
+        $resultado = $this->select("SELECT * FROM vendas WHERE idVenda = $id");
 
-        return $resultado->fetchObject(Vendas::class);
+        $dataSetVenda = $resultado->fetch();
+
+        if($dataSetVenda) {
+            $venda = new Vendas();
+            $venda->setId($dataSetVenda['idVenda']);
+            $venda->getClientes()->setId($dataSetVenda['idCliente']);
+            $venda->setDhVenda($dataSetVenda['dhVenda']);
+            $venda->setValor($dataSetVenda['valor']);
+
+            return $venda;
+        }
+
+        return false;
     }
 
     public function listar()
     {
         $resultado = $this->select("SELECT * FROM vendas");
 
-        return $resultado->fetchAll(\PDO::FETCH_CLASS, Vendas::class);
+        $dataSetVendas = $resultado->fetchAll();
+
+        $listaVendas = [];
+        
+        if($dataSetVendas) {
+
+            foreach($dataSetVendas as $dataSetVenda) :
+                
+                $venda = new Vendas();
+                $venda->setId($dataSetVenda['idVenda']);
+                $venda->setDhVenda($dataSetVenda['dhVenda']);
+                $venda->setValor($dataSetVenda['valor']);
+                $listaVendas[] = $venda;
+                
+            endforeach;
+        }
+
+        return $listaVendas;
     }
 
     public function salvar(Vendas $venda)
     {
         try {
             $idCliente = $venda->getClientes()->getId();
-            $dhVenda = $venda->getDhVenda()->format('Y-m-d H:i:s');
             $valor = $venda->getValor();
 
             return $this->insert(
                 'vendas',
-                'id_cliente, dh_venda, valor',
+                ':idCliente, :valor',
                 [
-                    ':id_cliente' => $idCliente,
-                    ':dh_venda' => $dhVenda,
+                    ':idCliente' => $idCliente,
                     ':valor' => $valor,
                 ]
             );
@@ -46,19 +73,17 @@ class VendaDAO extends BaseDAO
         try {
             $id = $venda->getId();
             $idCliente = $venda->getClientes()->getId();
-            $dhVenda = $venda->getDhVenda()->format('Y-m-d H:i:s');
             $valor = $venda->getValor();
 
             return $this->update(
                 'vendas',
-                'id_cliente = :id_cliente, dh_venda = :dh_venda, valor = :valor',
+                'idCliente = :idCliente, valor = :valor',
                 [
-                    ':id' => $id,
-                    ':id_cliente' => $idCliente,
-                    ':dh_venda' => $dhVenda,
+                    ':idVenda' => $id,
+                    ':idCliente' => $idCliente,
                     ':valor' => $valor,
                 ],
-                'id = :id'
+                'idVenda = :idVenda'
             );
         } catch (\Exception $e) {
             throw new \Exception("Erro na atualização dos dados." . $e->getMessage(), 500);
@@ -68,9 +93,21 @@ class VendaDAO extends BaseDAO
     public function excluir($id)
     {
         try {
-            return $this->delete('vendas', "id = $id");
+            return $this->delete('vendas', "idVenda = $id");
         } catch (\Exception $e) {
             throw new \Exception("Erro ao excluir a venda" . $e->getMessage(), 500);
         }
     }
+
+    public function getQuantidadeProdutos($id)
+    {
+        if ($id) {
+            $resultado = $this->select("SELECT count(*) as total FROM produtos_da_venda WHERE idVenda = $id");
+
+            return $resultado->fetch()['total'];
+        }
+
+        return false;
+    }
+
 }

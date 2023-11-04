@@ -4,8 +4,10 @@ namespace App\Controllers;
 
 use App\Lib\Sessao;
 use App\Models\DAO\VendaDAO;
-use App\Models\Entidades\Venda;
+use App\Models\Entidades\Vendas;
 use App\Models\Validacao\VendaValidador;
+use App\Models\DAO\ClienteDAO;
+use App\Models\Entidades\Clientes;
 
 class VendaController extends Controller
 {
@@ -15,7 +17,9 @@ class VendaController extends Controller
 
         $vendaDAO = new VendaDAO();
 
-        self::setViewParam('listaVenda', $vendaDAO->listar());
+        $listaVendas = $vendaDAO->listar();
+
+        self::setViewParam('listaVendas', $listaVendas);
 
         $this->render('/venda/index');
 
@@ -24,6 +28,12 @@ class VendaController extends Controller
 
     public function cadastro()
     {
+        $clienteDAO = new ClienteDAO();
+
+        $clientes = $clienteDAO->listar();
+        
+        self::setViewParam('listaClientes', $clientes);
+
         $this->render('/venda/cadastro');
 
         Sessao::limpaFormulario();
@@ -33,8 +43,9 @@ class VendaController extends Controller
 
     public function salvar()
     {
-        $venda = new Venda();
-        $venda->setNome($_POST['nome']);
+        $venda = new Vendas();
+        $venda->getClientes()->setId($_POST['idclientes']);
+        $venda->setValor($_POST['valor']);
 
         Sessao::gravaFormulario($_POST);
 
@@ -70,8 +81,10 @@ class VendaController extends Controller
         $id = $params[0];
 
         $vendaDAO = new VendaDAO();
+        $clienteDAO = new ClienteDAO();
 
         $venda = $vendaDAO->getById($id);
+        $clientes = $clienteDAO->listar();
 
         if(!$venda){
             Sessao::gravaErro("Venda (id:{$id}) inexistente.");
@@ -79,6 +92,7 @@ class VendaController extends Controller
         }
 
         self::setViewParam('venda',$venda);
+        self::setViewParam('listaClientes', $clientes);
 
         $this->render('/venda/editar');
 
@@ -88,9 +102,10 @@ class VendaController extends Controller
 
     public function atualizar()
     {
-        $venda = new Venda();
+        $venda = new Vendas();
         $venda->setId($_POST['id']);
-        $venda->setNome($_POST['nome']);
+        $venda->getClientes()->setId($_POST['idclientes']);
+        $venda->setvalor($_POST['valor']);
 
         Sessao::gravaFormulario($_POST);
 
@@ -144,7 +159,7 @@ class VendaController extends Controller
 
     public function excluir()
     {
-        $venda = new Venda();
+        $venda = new Vendas();
         $venda->setId($_POST['id']);
         //$venda->setNome($_POST['nome']);
 
@@ -152,9 +167,9 @@ class VendaController extends Controller
 
         if ($totalProdutos = $vendaDAO->getQuantidadeProdutos($_POST['id'])){
             if ($totalProdutos == 1) {
-                Sessao::gravaMensagem("O venda '{$venda->getNome()}' não pode ser excluído pois existe 1 produto vinculado a ele.");
+                Sessao::gravaMensagem("A venda nº'{$venda->getId()}' não pode ser excluída pois existe 1 produto vinculado a ela.");
             }else{
-                Sessao::gravaMensagem("O venda '{$venda->getNome()}' não pode ser excluído pois existem {$totalProdutos} produtos vinculados a ele.");
+                Sessao::gravaMensagem("A venda nº'{$venda->getId()}' não pode ser excluída pois existem {$totalProdutos} produtos vinculados a ela.");
             }
             $this->redirect('/venda');
         }
@@ -171,7 +186,7 @@ class VendaController extends Controller
             $this->redirect('/venda');            
         }        
 
-        Sessao::gravaMensagem("Venda '{$venda->getNome()}' excluido com sucesso!");
+        Sessao::gravaMensagem("Venda '{$venda->getId()}' excluida com sucesso!");
 
         $this->redirect('/venda');
     }
