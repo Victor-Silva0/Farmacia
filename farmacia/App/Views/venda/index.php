@@ -27,6 +27,7 @@
                             <td class="info">ID</td>
                             <td class="info">Cliente</td>
                             <td class="info">Valor</td>
+                            <td class="info">Data e hora</td>
                             <td class="info" style="width: 15%">Ação</td>
                         </tr>
                         <?php foreach ($viewVar['listaVendas'] as $venda) { ?>
@@ -34,6 +35,7 @@
                                 <td><?= $venda->getId() ?></td>
                                 <td><?= $venda->getClientes()->getNome() ?></td>
                                 <td>R$ <?= number_format($venda->getValor(), 2, ',', '.') ?></td>
+                                <td><?= date('d/m/Y h:i:s',strtotime($venda->getDhVenda())) ?></td>
                                 <td>
                                     <a href="http://<?= APP_HOST ?>/venda/edicao/<?= $venda->getId() ?>"
                                         class="btn btn-info btn-sm">

@@ -15,7 +15,7 @@
             <br />
             <div class="form-group">
                 <label for="idclientes">Cliente</label>
-                <input type="text" class="form-control" name="cliente" value="<?php echo $viewVar['venda']->getClientes()->getNome(); ?>" readonly>
+                <input type="text" class="form-control" name="cliente" value="<?php echo $viewVar['venda']->getClientes()->getId(); ?>" readonly>
             </div>
             <br />
             <div class="form-group">

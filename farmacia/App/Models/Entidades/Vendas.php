@@ -7,10 +7,10 @@ use App\Models\Entidades\Clientes;
 
 class Vendas
 {
-    private $id;
+    private int $id;
     private  Clientes $clientes;
-    private $dhVenda;
-    private $valor;
+    private string $dhVenda;
+    private float $valor;
 
     public function __construct()
     {
@@ -39,7 +39,7 @@ class Vendas
 
     public function getDhVenda()
     {
-        return new DateTime($this->dhVenda);
+        return $this->dhVenda;
     }
 
     public function setDhVenda($dhVenda)
