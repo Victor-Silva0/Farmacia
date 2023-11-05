@@ -5,22 +5,22 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
 -- -----------------------------------------------------
--- Schema dbFarmatech
+-- Schema farmacia
 -- -----------------------------------------------------
-DROP SCHEMA IF EXISTS `dbFarmatech` ;
+DROP SCHEMA IF EXISTS `farmacia` ;
 
 -- -----------------------------------------------------
--- Schema dbFarmatech
+-- Schema farmacia
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `dbFarmatech` DEFAULT CHARACTER SET utf8 ;
-USE `dbFarmatech` ;
+CREATE SCHEMA IF NOT EXISTS `farmacia` DEFAULT CHARACTER SET utf8 ;
+USE `farmacia` ;
 
 -- -----------------------------------------------------
--- Table `dbFarmatech`.`produtos`
+-- Table `farmacia`.`produtos`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `dbFarmatech`.`produtos` ;
+DROP TABLE IF EXISTS `farmacia`.`produtos` ;
 
-CREATE TABLE IF NOT EXISTS `dbFarmatech`.`produtos` (
+CREATE TABLE IF NOT EXISTS `farmacia`.`produtos` (
   `idProduto` INT NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(255) NULL,
   `marca` VARCHAR(100) NULL,
@@ -32,12 +32,12 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `dbFarmatech`.`clientes`
+-- Table `farmacia`.`clientes`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `dbFarmatech`.`clientes` ;
+DROP TABLE IF EXISTS `farmacia`.`clientes` ;
 
-CREATE TABLE IF NOT EXISTS `dbFarmatech`.`clientes` (
-  `idCliente` INT NOT NULL,
+CREATE TABLE IF NOT EXISTS `farmacia`.`clientes` (
+  `idCliente` INT NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(100) NULL,
   `celular` VARCHAR(16) NULL,
   `email` VARCHAR(45) NULL,
@@ -46,60 +46,60 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `dbFarmatech`.`vendas`
+-- Table `farmacia`.`vendas`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `dbFarmatech`.`vendas` ;
+DROP TABLE IF EXISTS `farmacia`.`vendas` ;
 
-CREATE TABLE IF NOT EXISTS `dbFarmatech`.`vendas` (
-  `idVenda` INT NOT NULL,
+CREATE TABLE IF NOT EXISTS `farmacia`.`vendas` (
+  `idVenda` INT NOT NULL AUTO_INCREMENT,
   `idCliente` INT NOT NULL,
   `dhVenda` TIMESTAMP NULL DEFAULT current_timestamp(),
   `valor` FLOAT NULL,
-  PRIMARY KEY (`idVenda`),
   INDEX `fk_vendas_clientes1_idx` (`idCliente` ASC),
+  PRIMARY KEY (`idVenda`),
   CONSTRAINT `fk_vendas_clientes1`
     FOREIGN KEY (`idCliente`)
-    REFERENCES `dbFarmatech`.`clientes` (`idCliente`)
+    REFERENCES `farmacia`.`clientes` (`idCliente`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `dbFarmatech`.`usuario`
+-- Table `farmacia`.`usuario`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `dbFarmatech`.`usuario` ;
+DROP TABLE IF EXISTS `farmacia`.`usuario` ;
 
-CREATE TABLE IF NOT EXISTS `dbFarmatech`.`usuario` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nome` varchar(100) NOT NULL,
-  `email` varchar(100) NOT NULL,
-  `username` varchar(50) DEFAULT NULL,
-  `password` varchar(255) DEFAULT NULL,
-  `tipo` varchar(10) NOT NULL,
-  `data_cadastro` datetime NOT NULL DEFAULT current_timestamp(),
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+CREATE TABLE IF NOT EXISTS `farmacia`.`usuario` (
+  `idUsuario` INT NOT NULL AUTO_INCREMENT,
+  `nome` VARCHAR(100) NULL,
+  `email` VARCHAR(100) NULL,
+  `nomeusuario` VARCHAR(45) NULL,
+  `senha` VARCHAR(255) NULL,
+  `tipo` VARCHAR(20) NULL,
+  `dhcadastro` TIMESTAMP NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`idUsuario`))
+ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `dbFarmatech`.`produtos_da_venda`
+-- Table `farmacia`.`produtos_da_venda`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `dbFarmatech`.`produtos_da_venda` ;
+DROP TABLE IF EXISTS `farmacia`.`produtos_da_venda` ;
 
-CREATE TABLE IF NOT EXISTS `dbFarmatech`.`produtos_da_venda` (
+CREATE TABLE IF NOT EXISTS `farmacia`.`produtos_da_venda` (
   `idVenda` INT NOT NULL,
   `idProduto` INT NOT NULL,
   PRIMARY KEY (`idVenda`, `idProduto`),
   INDEX `fk_produtos_da_venda_produtos1_idx` (`idProduto` ASC),
   CONSTRAINT `fk_produtos_da_venda_vendas1`
     FOREIGN KEY (`idVenda`)
-    REFERENCES `dbFarmatech`.`vendas` (`idVenda`)
+    REFERENCES `farmacia`.`vendas` (`idVenda`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_produtos_da_venda_produtos1`
     FOREIGN KEY (`idProduto`)
-    REFERENCES `dbFarmatech`.`produtos` (`idProduto`)
+    REFERENCES `farmacia`.`produtos` (`idProduto`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -110,57 +110,52 @@ SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
 -- -----------------------------------------------------
--- Data for table `dbFarmatech`.`produtos`
+-- Data for table `farmacia`.`produtos`
 -- -----------------------------------------------------
 START TRANSACTION;
-USE `dbFarmatech`;
-INSERT INTO `dbFarmatech`.`produtos` (`idProduto`, `nome`, `marca`, `conteudo`, `valor`, `imagem`) VALUES (1, 'Dipirona Monoidratada 500mg/ml Solução Gotas 10ml EMS Genérico', 'EMS', '10ml', 5.39, 'dipirona.png');
-INSERT INTO `dbFarmatech`.`produtos` (`idProduto`, `nome`, `marca`, `conteudo`, `valor`, `imagem`) VALUES (2, 'Novalgina Solução Oral Analgésico e Antitérmico Infantil 100ml', 'Novalgina', '100ml', 40.19, 'novalgina.png');
-INSERT INTO `dbFarmatech`.`produtos` (`idProduto`, `nome`, `marca`, `conteudo`, `valor`, `imagem`) VALUES (3, 'Antialérgico Allegra Pediátrico 6mg/ml Suspensão Oral 60ml com Seringa', 'Allegra', '60ml', 37.68, 'allegra.png');
-INSERT INTO `dbFarmatech`.`produtos` (`idProduto`, `nome`, `marca`, `conteudo`, `valor`, `imagem`) VALUES (4, 'Vick VapoRub Descongestionante Pomada 12g', 'Vick', '12g', 14.29, 'vick.png');
-INSERT INTO `dbFarmatech`.`produtos` (`idProduto`, `nome`, `marca`, `conteudo`, `valor`, `imagem`) VALUES (5, 'Solução Fisiológica 0,9% Needs 500ml', 'Needs', '500ml', 7.99, 'sorofisiologico.png');
+USE `farmacia`;
+INSERT INTO `farmacia`.`produtos` (`idProduto`, `nome`, `marca`, `conteudo`, `valor`, `imagem`) VALUES (1, 'Dipirona Monoidratada 500mg/ml Solução Gotas 10ml EMS Genérico', 'EMS', '10ml', 5.39, 'dipirona.png');
+INSERT INTO `farmacia`.`produtos` (`idProduto`, `nome`, `marca`, `conteudo`, `valor`, `imagem`) VALUES (2, 'Novalgina Solução Oral Analgésico e Antitérmico Infantil 100ml', 'Novalgina', '100ml', 40.19, 'novalgina.png');
+INSERT INTO `farmacia`.`produtos` (`idProduto`, `nome`, `marca`, `conteudo`, `valor`, `imagem`) VALUES (3, 'Antialérgico Allegra Pediátrico 6mg/ml Suspensão Oral 60ml com Seringa', 'Allegra', '60ml', 37.68, 'allegra.png');
+INSERT INTO `farmacia`.`produtos` (`idProduto`, `nome`, `marca`, `conteudo`, `valor`, `imagem`) VALUES (4, 'Vick VapoRub Descongestionante Pomada 12g', 'Vick', '12g', 14.29, 'vick.png');
+INSERT INTO `farmacia`.`produtos` (`idProduto`, `nome`, `marca`, `conteudo`, `valor`, `imagem`) VALUES (5, 'Solução Fisiológica 0,9% Needs 500ml', 'Needs', '500ml', 7.99, 'sorofisiologico.png');
 
 COMMIT;
 
 
 -- -----------------------------------------------------
--- Data for table `dbFarmatech`.`clientes`
+-- Data for table `farmacia`.`clientes`
 -- -----------------------------------------------------
 START TRANSACTION;
-USE `dbFarmatech`;
-INSERT INTO `dbFarmatech`.`clientes` (`idCliente`, `nome`, `celular`, `email`) VALUES (1, 'Rafael Fernandes de Melo Lopes', '18981628848', 'rafael_lopes51@hotmail.com');
-INSERT INTO `dbFarmatech`.`clientes` (`idCliente`, `nome`, `celular`, `email`) VALUES (2, 'Victor Amaral', '18999999999', 'victor@hotmail.com');
-INSERT INTO `dbFarmatech`.`clientes` (`idCliente`, `nome`, `celular`, `email`) VALUES (3, 'Breno', '18999999999', 'breno@hotmail.com');
-INSERT INTO `dbFarmatech`.`clientes` (`idCliente`, `nome`, `celular`, `email`) VALUES (4, 'Pedro', '18976548888', 'pedro@hotmail.com');
+USE `farmacia`;
+INSERT INTO `farmacia`.`clientes` (`idCliente`, `nome`, `celular`, `email`) VALUES (1, 'Rafael', '18999999999', 'rafael@hotmail.com');
+INSERT INTO `farmacia`.`clientes` (`idCliente`, `nome`, `celular`, `email`) VALUES (2, 'Victor', '18999999999', 'victor@hotmail.com');
+INSERT INTO `farmacia`.`clientes` (`idCliente`, `nome`, `celular`, `email`) VALUES (3, 'Breno', '18999999999', 'breno@hotmail.com');
+INSERT INTO `farmacia`.`clientes` (`idCliente`, `nome`, `celular`, `email`) VALUES (4, 'Pedro', '18999999999', 'pedro@hotmail.com');
 
 COMMIT;
 
 
 -- -----------------------------------------------------
--- Data for table `dbFarmatech`.`vendas`
+-- Data for table `farmacia`.`vendas`
 -- -----------------------------------------------------
 START TRANSACTION;
-USE `dbFarmatech`;
-INSERT INTO `dbFarmatech`.`vendas` (`idVenda`, `idCliente`, `dhVenda`, `valor`) VALUES (1, 1, '', 100);
-INSERT INTO `dbFarmatech`.`vendas` (`idVenda`, `idCliente`, `dhVenda`, `valor`) VALUES (2, 2, '', 200);
+USE `farmacia`;
+INSERT INTO `farmacia`.`vendas` (`idVenda`, `idCliente`, `dhVenda`, `valor`) VALUES (1, 1, '', 100);
+INSERT INTO `farmacia`.`vendas` (`idVenda`, `idCliente`, `dhVenda`, `valor`) VALUES (2, 2, '', 200);
 
 COMMIT;
 
 
 -- -----------------------------------------------------
--- Data for table `dbFarmatech`.`usuario`
--- -----------------------------------------------------
-
-
--- -----------------------------------------------------
--- Data for table `dbFarmatech`.`produtos_da_venda`
+-- Data for table `farmacia`.`produtos_da_venda`
 -- -----------------------------------------------------
 START TRANSACTION;
-USE `dbFarmatech`;
-INSERT INTO `dbFarmatech`.`produtos_da_venda` (`idVenda`, `idProduto`) VALUES (1, 1);
-INSERT INTO `dbFarmatech`.`produtos_da_venda` (`idVenda`, `idProduto`) VALUES (1, 2);
-INSERT INTO `dbFarmatech`.`produtos_da_venda` (`idVenda`, `idProduto`) VALUES (2, 3);
-INSERT INTO `dbFarmatech`.`produtos_da_venda` (`idVenda`, `idProduto`) VALUES (2, 4);
+USE `farmacia`;
+INSERT INTO `farmacia`.`produtos_da_venda` (`idVenda`, `idProduto`) VALUES (1, 1);
+INSERT INTO `farmacia`.`produtos_da_venda` (`idVenda`, `idProduto`) VALUES (1, 2);
+INSERT INTO `farmacia`.`produtos_da_venda` (`idVenda`, `idProduto`) VALUES (2, 3);
+INSERT INTO `farmacia`.`produtos_da_venda` (`idVenda`, `idProduto`) VALUES (2, 4);
 
 COMMIT;
 
