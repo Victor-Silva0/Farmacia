@@ -10,7 +10,19 @@ class ClienteDAO extends BaseDAO
     {
         $resultado = $this->select("SELECT * FROM clientes WHERE id = $id");
 
-        return $resultado->fetchObject(Clientes::class);
+        $dataSetCliente = $resultado->fetch();
+
+        if($dataSetCliente) {
+            $cliente = new Clientes();
+            $cliente->setId($dataSetCliente['idCliente']);
+            $cliente->setNome($dataSetCliente['nome']);
+            $cliente->setCelular($dataSetCliente['celular']);
+            $cliente->setEmail($dataSetCliente['email']);
+
+            return $cliente;
+        }
+
+        return false;
     }
 
     public function listar ()
