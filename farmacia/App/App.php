@@ -24,7 +24,7 @@ class App
         define('DB_HOST'        , "localhost");
         define('DB_USER'        , "root");
         define('DB_PASSWORD'    , "");
-        define('DB_NAME'        , "dbfarmatech");
+        define('DB_NAME'        , "farmacia");
         define('DB_DRIVER'      , "mysql");
 
         $this->url();
