@@ -23,7 +23,7 @@
             <?php } else { ?>
                 <div class="table-responsive">
                     <table class="table table-bordered table-hover">
-                        <tr class="table-success" style="font-weight: bold">
+                        <tr class="table-secondary" style="font-weight: bold">
                             <td class="info">ID</td>
                             <td class="info">Cliente</td>
                             <td class="info">Valor</td>
@@ -31,7 +31,7 @@
                             <td class="info" style="width: 15%">Ação</td>
                         </tr>
                         <?php foreach ($viewVar['listaVendas'] as $venda) { ?>
-                            <tr>
+                            <tr class="table-light">
                                 <td><?= $venda->getId() ?></td>
                                 <td><?= $venda->getClientes()->getNome() ?></td>
                                 <td>R$ <?= number_format($venda->getValor(), 2, ',', '.') ?></td>
