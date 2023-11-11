@@ -65,7 +65,7 @@
     </form>
   </div>
 
-  <div class="d-flex justify-content-center align-items-center text-center" style="min-height: 100vh;">
+  <div class="align-items-center text-center" style="min-height: 100vh;">
     <div class="row g-5 py-5 pb-2">
 
       <?php if(is_null($viewVar['listaProdutos'])) { ?>
