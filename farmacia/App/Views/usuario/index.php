@@ -21,7 +21,7 @@
             <?php } else { ?>                
                 <div class="table-responsive">
                     <table class="table table-bordered table-hover">
-                        <tr class="table-success" style="font-weight: bold">
+                        <tr class="table-secondary" style="font-weight: bold">
                             <td class="info">Nome</td>
                             <td class="info">E-Mail</td>
                             <td class="info" style="width:15%">Username</td>
@@ -29,7 +29,7 @@
                             <td class="info text-center" style="width:15%">Ação</td>
                         </tr>
                         <?php foreach($viewVar['listaUsuarios'] as $usuario) { ?>
-                            <tr>
+                            <tr class="table-light">
                                 <td><?= $usuario->getNome() ?></td>
                                 <td><?= $usuario->getEmail() ?></td>
                                 <td><?= $usuario->getUsername()." (".$usuario->getTipo().")" ?></td>

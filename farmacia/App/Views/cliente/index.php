@@ -21,14 +21,14 @@
             <?php } else { ?>                
                 <div class="table-responsive">
                     <table class="table table-bordered table-hover">
-                        <tr class="table-success" style="font-weight: bold">
+                        <tr class="table-secondary" style="font-weight: bold">
                             <td class="info">Nome</td>
                             <td class="info">Celular</td>
                             <td class="info">E-mail</td>
                             <td class="info text-center">Ação</td>
                         </tr>
                         <?php foreach($viewVar['listaClientes'] as $cliente) { ?>
-                            <tr>
+                            <tr class="table-light">
                                 <td><?= $cliente->getNome() ?></td>
                                 <td><?= $cliente->getCelular() ?></td>
                                 <td><?= $cliente->getEmail() ?></td>

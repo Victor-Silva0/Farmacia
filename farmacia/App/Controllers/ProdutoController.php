@@ -13,7 +13,7 @@ class ProdutoController extends Controller
 {
     public function index()
     {
-        //if (!$this->auth()) $this->redirect('/login');
+        if (!$this->auth()) $this->redirect('/login');
 
         $produtoDAO = new ProdutoDAO();
 

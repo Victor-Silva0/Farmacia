@@ -20,7 +20,7 @@ class App
          */
         define('APP_HOST'       , $_SERVER['HTTP_HOST'] . "/farmacia");
         define('PATH'           , realpath('./'));
-        define('TITLE'          , "Exemplo de Aplicação MVC em PHP - 2023");
+        define('TITLE'          , "Farmatech");
         define('DB_HOST'        , "localhost");
         define('DB_USER'        , "root");
         define('DB_PASSWORD'    , "");
