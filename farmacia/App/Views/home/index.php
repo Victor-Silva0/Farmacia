@@ -3,7 +3,7 @@
   body {background-color: #d8f2f3; font-family: 'Lato', sans-serif;}
   .container {margin-top: 30px; margin-bottom: 20px; color: #133a3a;}
   .container > a{border: 10px solid #133a3a; border-radius: 15px;}
-  .container1 {color: white; margin-top: 30px; padding: 50px; background-color: #133a3a;}
+  .container1 {color: white; margin-top: 30px; padding: 50px; padding-bottom: 0px; background-color: #133a3a;}
 </style>
 
 <div class="container">
@@ -47,48 +47,51 @@
 
 <div class="container1">
   <h1 class="text-white text-center">Nossos Produtos</h1>
+
+  <div class="col-md-3 mx-auto">
+    <form action="http://<?php echo APP_HOST; ?>" method="get" class="form-inline buscaDireita">
+        <div class="form-group">
+            <div class="input-group">
+                <span class="input-group-addon input-sm" id="basic-addon1">
+                    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                </span>
+                <input type="text" placeholder="Digite..." value="" class="form-control input-sm" name="busca" />
+
+                <div class="input-group-btn">
+                    <button class="btn btn-success btn-sm" type="submit">Buscar</button>
+                </div>
+            </div>
+        </div>
+    </form>
+  </div>
+
   <div class="d-flex justify-content-center align-items-center text-center" style="min-height: 100vh;">
-    <div class="row g-5 py-5">
+    <div class="row g-5 py-5 pb-2">
 
-      <div class="col-md-6 col-lg-6">
-        <div class="context-box">
-          <h2 class="text-white">Medicamentos</h2>
-          <a href="link-para-medicamentos.html">
-          <img src="http://<?= APP_HOST ?>/public/images/1.jpg" class="d-block mx-lg-auto img-fluid border border-success rounded" alt="Contexto 2" width="700" height="500" loading="lazy">
-          </a><br>
-          <p class="lead">Descubra nossa ampla variedade de medicamentos de alta qualidade, cuidadosamente selecionados para atender às suas necessidades de saúde. Na nossa farmácia, você encontrará medicamentos confiáveis e acessíveis para o tratamento e prevenção de diversas condições. Conte com nossos farmacêuticos experientes para fornecer orientações personalizadas e garantir que você receba o melhor cuidado para o seu bem-estar.</p>
-        </div>
-      </div>
+      <?php if(is_null($viewVar['listaProdutos'])) { ?>
+                  <div class="alert alert-info" role="alert">Nenhum produto encontrado.</div>
+      <?php } else { ?>
 
-      <div class="col-md-6 col-lg-6 text-center">
-        <div class="context-box">
-          <h2 class="text-white">Suplementos e Vitaminas</h2>
-          <a href="link-para-suplementos.html">
-          <img src="http://<?= APP_HOST ?>/public/images/2.jpg" class="d-block mx-lg-auto img-fluid border border-success rounded" alt="Contexto 2" width="700" height="500" loading="lazy">
-          </a><br>
-          <p class="lead">Explore nossa gama de suplementos e vitaminas de alta qualidade, projetados para impulsionar sua saúde e bem-estar. Nossos suplementos são formulados para atender às suas necessidades específicas, desde fortalecimento do sistema imunológico até suporte para um estilo de vida ativo. Conte com a nossa farmácia para encontrar os melhores suplementos e vitaminas que ajudarão você a alcançar seus objetivos de saúde.</p>
+      <?php foreach($viewVar['listaProdutos'] as $produto) { ?>
+        
+        <div class="col-md-4">
+          <div class="context-box bg-dark">
+            <h4 class="text-white p-3"><?= $produto->getNome() ?></h4>
+            <img src="http://<?= APP_HOST ?>/public/images/<?= $produto->getImagem() ?>" class="d-block mx-auto img-fluid border border-warning rounded" alt="imagem" style="width:30%">
+            <br />
+            <p class="lead"><?= $produto->getMarca() ?></p>
+            <p class="lead"><?= $produto->getConteudo() ?></p>
+            <hr />
+            <p class="lead pb-3">R$ <?= $produto->getvalor() ?></p>
+          </div>
         </div>
-      </div>
 
-      <div class="col-md-6 col-lg-6 text-center">
-        <div class="context-box">
-          <h2 class="text-white">Beleza</h2>
-          <a href="link-para-beleza.html">
-          <img src="http://<?= APP_HOST ?>/public/images/3.jpg" class="d-block mx-lg-auto img-fluid border border-success rounded" alt="Contexto 3" width="700" height="500" loading="lazy">
-          </a><br>
-          <p class="lead">Descubra o segredo para realçar sua beleza natural com nossa coleção de produtos de beleza. Na nossa farmácia, oferecemos uma variedade de cosméticos e cuidados com a pele de alta qualidade para realçar a sua aparência e realçar a sua autoestima. Encontre os melhores produtos de beleza, desde maquiagem luxuosa até cuidados com a pele rejuvenescedores, para que você possa desfrutar de uma aparência radiante e confiante todos os dias.</p>
-        </div>
-      </div>
+      <?php } ?>
 
-      <div class="col-md-6 col-lg-6">
-        <div class="context-box">
-          <h2 class="text-white">Higiene</h2>
-          <a href="link-para-higiene.html">
-          <img src="http://<?= APP_HOST ?>/public/images/4.jpg" class="d-block mx-lg-auto img-fluid border border-success rounded" alt="Contexto 4" width="700" height="500" loading="lazy">
-          </a><br>
-          <p class="lead">Mantenha-se saudável e limpo com a nossa seleção de produtos de higiene de alta qualidade. Na nossa farmácia, cuidamos da sua saúde e bem-estar, oferecendo uma ampla gama de produtos de higiene pessoal. Desde produtos básicos, como sabonetes e escovas de dentes, até opções especializadas para cuidados específicos, você encontrará tudo o que precisa para manter uma rotina diária de higiene eficaz. Cuide de si e de sua família com os melhores produtos de higiene disponíveis.</p>
-        </div>
-      </div>
+      
+      <?php } ?>
+      
     </div>
   </div>
 </div>
+<div class="text-center mt-3 ms-5"><?php echo $viewVar['paginacao']; ?></div>
