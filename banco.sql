@@ -88,9 +88,11 @@ CREATE TABLE IF NOT EXISTS `farmacia`.`usuario` (
 DROP TABLE IF EXISTS `farmacia`.`produtos_da_venda` ;
 
 CREATE TABLE IF NOT EXISTS `farmacia`.`produtos_da_venda` (
+  `id` INT NOT NULL AUTO_INCREMENT,
   `idVenda` INT NOT NULL,
   `idProduto` INT NOT NULL,
-  PRIMARY KEY (`idVenda`, `idProduto`),
+  `quantidade` INT NULL,
+  PRIMARY KEY (`id`),
   INDEX `fk_produtos_da_venda_produtos1_idx` (`idProduto` ASC),
   CONSTRAINT `fk_produtos_da_venda_vendas1`
     FOREIGN KEY (`idVenda`)
@@ -151,9 +153,9 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `farmacia`;
-INSERT INTO `farmacia`.`produtos_da_venda` (`idVenda`, `idProduto`) VALUES (1, 1);
-INSERT INTO `farmacia`.`produtos_da_venda` (`idVenda`, `idProduto`) VALUES (1, 2);
-INSERT INTO `farmacia`.`produtos_da_venda` (`idVenda`, `idProduto`) VALUES (2, 3);
-INSERT INTO `farmacia`.`produtos_da_venda` (`idVenda`, `idProduto`) VALUES (2, 4);
+INSERT INTO `farmacia`.`produtos_da_venda` (`id`,`idVenda`, `idProduto`,`quantidade` ) VALUES (1, 1, 1, 1);
+INSERT INTO `farmacia`.`produtos_da_venda` (`id`,`idVenda`, `idProduto`,`quantidade` ) VALUES (2, 1, 2, 1);
+INSERT INTO `farmacia`.`produtos_da_venda` (`id`,`idVenda`, `idProduto`,`quantidade` ) VALUES (3, 2, 3, 1);
+INSERT INTO `farmacia`.`produtos_da_venda` (`id`,`idVenda`, `idProduto`,`quantidade` ) VALUES (4, 2, 4, 1);
 
 COMMIT;
