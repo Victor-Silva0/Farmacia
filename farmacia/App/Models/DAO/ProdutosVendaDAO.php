@@ -4,6 +4,7 @@ namespace App\Models\DAO;
 
 use App\Models\Entidades\ProdutosVenda;
 
+
 class ProdutosVendaDAO extends BaseDAO
 {
     public function getByVendaId($vendaId)
@@ -13,10 +14,10 @@ class ProdutosVendaDAO extends BaseDAO
         return $resultado->fetchAll(\PDO::FETCH_CLASS, ProdutosVenda::class);
     }
 
-    public function getByProdutoId($produtoId)
+    public function listar ()
     {
-        $sql = "SELECT * FROM produtos_da_venda WHERE idProduto = $produtoId";
-        $resultado = $this->select($sql);
+        $resultado = $this->select("SELECT * FROM produtos_da_venda WHERE idVenda = 3"); //aqui eu forcei o ID para testar
+
         return $resultado->fetchAll(\PDO::FETCH_CLASS, ProdutosVenda::class);
     }
 
@@ -28,7 +29,7 @@ class ProdutosVendaDAO extends BaseDAO
 
             return $this->insert(
                 'produtos_da_venda',
-                'idVenda, idProduto',
+                'idVenda, idProduto, quantidade',
                 [':idVenda' => $idVenda, ':idProduto' => $idProduto]
             );
         } catch (\Exception $e) {
