@@ -25,14 +25,12 @@
                     <table class="table table-bordered table-hover">
                         <tr class="table-success" style="font-weight: bold">
                             <td class="info">Produto</td>
-                            <td class="info">Venda</td>
                             <td class="info">Quantidade</td>
                             <td class="info text-center" style="width:15%">Ação</td>
                         </tr>
-                        <?php foreach ($viewVar['listaProdutoVenda'] as $produtoVenda) { ?>
+                        <?php foreach ($viewVar['listaProdutoVenda'] as $produtoVenda) : ?>
                             <tr>
                                 <td><?= $produtoVenda->getProduto()->getNome() ?></td>
-                                <td><?= $produtoVenda->getVendas()->getId() ?></td>
                                 <td><?= $produtoVenda->getQuantidade() ?></td>
                                 <td>
                                     <a href="http://<?= APP_HOST ?>/produto_venda/edicao/<?= $produtoVenda->getId() ?>"
@@ -45,7 +43,7 @@
                                     </a>
                                 </td>
                             </tr>
-                        <?php } ?>
+                        <?php endforeach ?>
                     </table>
                 </div>
             <?php } ?>
