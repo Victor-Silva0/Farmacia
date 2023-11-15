@@ -3,11 +3,6 @@
     <div class="row">
         <br />
         <div class="col-md-12">
-            <a href="http://<?php echo APP_HOST; ?>/produto_venda/cadastro" class="btn btn-success btn-sm">
-                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Adicionar Produto à Venda
-            </a>
-        </div>
-        <div class="col-md-12">
             <hr>
 
             <?php if ($Sessao::retornaMensagem()) { ?>
@@ -24,13 +19,17 @@
                 <div class="table-responsive">
                     <table class="table table-bordered table-hover">
                         <tr class="table-success" style="font-weight: bold">
+                            <td class="info">Id Produto</td>
                             <td class="info">Produto</td>
+                            <td class="info">Preço</td>
                             <td class="info">Quantidade</td>
                             <td class="info text-center" style="width:15%">Ação</td>
                         </tr>
                         <?php foreach ($viewVar['listaProdutoVenda'] as $produtoVenda) : ?>
                             <tr>
+                                <td><?= $produtoVenda->getProduto()->getId() ?></td>
                                 <td><?= $produtoVenda->getProduto()->getNome() ?></td>
+                                <td><?= $produtoVenda->getProduto()->getValor() ?></td>
                                 <td><?= $produtoVenda->getQuantidade() ?></td>
                                 <td>
                                     <a href="http://<?= APP_HOST ?>/produto_venda/edicao/<?= $produtoVenda->getId() ?>"
