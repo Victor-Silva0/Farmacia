@@ -47,6 +47,7 @@
 
 <div class="container1">
   <h1 class="text-white text-center">Nossos Produtos</h1>
+  <br>
 
   <div class="col-md-3 mx-auto">
     <form action="http://<?php echo APP_HOST; ?>" method="get" class="form-inline buscaDireita">
@@ -77,7 +78,7 @@
         <div class="col-md-4">
           <div class="context-box bg-dark">
             <h4 class="text-white p-3"><?= $produto->getNome() ?></h4>
-            <img src="http://<?= APP_HOST ?>/public/images/<?= $produto->getImagem() ?>" class="d-block mx-auto img-fluid border border-warning rounded" alt="imagem" style="width:30%">
+            <img src="http://<?= APP_HOST ?>/public/images/<?= $produto->getImagem() ?>" class="d-block mx-auto img-fluid border border-warning rounded" alt="imagem" style="width:200px; height: 200px">
             <br />
             <p class="lead"><?= $produto->getMarca() ?></p>
             <p class="lead"><?= $produto->getConteudo() ?></p>
@@ -94,4 +95,5 @@
     </div>
   </div>
 </div>
-<div class="text-center mt-3 ms-5"><?php echo $viewVar['paginacao']; ?></div>
+
+<div style="margin: 12px" class="text-center mt-3 ms-3"><?php echo $viewVar['paginacao']; ?></div>
