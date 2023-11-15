@@ -48,12 +48,12 @@
                                     </a>
 
                                     <a href="http://<?= APP_HOST ?>/produto_venda/index/<?= $venda->getId() ?>"
-                                        class="btn btn-info btn-sm">
+                                        class="btn btn-warning btn-sm">
                                         <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Produtos
                                     </a>
 
                                     <a href="http://<?= APP_HOST ?>/produto_venda/cadastro/<?= $venda->getId() ?>"
-                                        class="btn btn-info btn-sm">
+                                        class="btn btn-success btn-sm">
                                         <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> + Produto
                                     </a>
 

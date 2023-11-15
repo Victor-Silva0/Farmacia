@@ -21,7 +21,7 @@
             <br />
             <div class="form-group">
                 <label for="valor">Valor</label>
-                 R$ <input type="text" class="form-control" name="valor" placeholder="0" value="<?php echo$Sessao::retornaValorFormulario('valor'); ?>" required>
+                 R$ <input type="text" class="form-control" name="valor" placeholder="0" value="<?php echo $Sessao::retornaValorFormulario('valor'); ?>" required>
             </div>
             <br />
 

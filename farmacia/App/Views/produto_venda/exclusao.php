@@ -12,15 +12,11 @@
 
         <form action="http://<?php echo APP_HOST; ?>/produto_venda/excluir" method="post" id="form_cadastro">
             <input type="hidden" class="form-control" name="id" value="<?php echo $viewVar['produtoVenda']->getId(); ?>">
+            <input type="hidden" class="form-control" name="idvenda" value="<?php echo $viewVar['produtoVenda']->getVendas()->getId(); ?>">
             <br />
             <div class="form-group">
                 <label for="idproduto">Produto</label>
                 <input type="text" class="form-control" name="produto" value="<?php echo $viewVar['produtoVenda']->getProduto()->getNome(); ?>" readonly>
-            </div>
-            <br />
-            <div class="form-group">
-                <label for="idvenda">Venda</label>
-                <input type="text" class="form-control" name="venda" value="<?php echo $viewVar['produtoVenda']->getVendas()->getId(); ?>" readonly>
             </div>
             <br />
             <div class="form-group">
@@ -30,9 +26,8 @@
             <br />
             <div class="panel panel-danger">
                 <div class="panel-body">
-                    Deseja realmente excluir a venda do produto:
-                    <b><?= $viewVar['produtoVenda']->getProduto()->getNome() ?></b>
-                    na venda número: <b><?= $viewVar['produtoVenda']->getVendas()->getId() ?></b>?
+                    Deseja realmente excluir o seguinte item:
+                    <b><?= $viewVar['produtoVenda']->getProduto()->getNome() ?></b>?
                 </div>
                 <br />
                 <div class="panel-footer">

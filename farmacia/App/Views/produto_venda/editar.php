@@ -25,17 +25,6 @@
             </div>
             <br />
             <div class="form-group">
-                <label for="idvenda">Venda</label>
-                <select class="form-control" name="idvenda" required>
-                    <?php foreach ($viewVar['listaVendas'] as $venda) { ?>
-                        <option value="<?= $venda->getId() ?>" <?= ($venda->getId() == $viewVar['produtoVenda']->getVendas()->getId()) ? 'selected' : '' ?>>
-                            <?= $venda->getId() ?>
-                        </option>
-                    <?php } ?>
-                </select>
-            </div>
-            <br />
-            <div class="form-group">
                 <label for="quantidade">Quantidade</label>
                 <input type="number" class="form-control" name="quantidade" placeholder="0"
                     value="<?php echo $viewVar['produtoVenda']->getQuantidade(); ?>" required>

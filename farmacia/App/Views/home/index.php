@@ -77,9 +77,7 @@
         <div class="col-md-4">
           <div class="context-box bg-dark">
             <h4 class="text-white p-3"><?= $produto->getNome() ?></h4>
-            <img src="http://<?= APP_HOST ?>/public/images/<?= $produto->getImagem() ?>" class="d-block mx-auto img-fluid border border-warning rounded" alt="imagem" style="width: 200px;
-    height: 200px">
-
+            <img src="http://<?= APP_HOST ?>/public/images/<?= $produto->getImagem() ?>" class="d-block mx-auto img-fluid border border-warning rounded" alt="imagem" style="width:30%">
             <br />
             <p class="lead"><?= $produto->getMarca() ?></p>
             <p class="lead"><?= $produto->getConteudo() ?></p>

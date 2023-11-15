@@ -22,8 +22,7 @@
             </div>
             <br />
             <div class="form-group">
-                <label for="idvenda">Venda</label>
-                <input type="text" class="form-control" name="idvenda" value="1" disabled> <!-- aqui tem que pegar o código selecionado na lista ... deixei assim para forçar-->
+                <input type="hidden" class="form-control" name="idvenda" value="<?= $viewVar['idvenda']; ?>">
             </div>
             <br />
             <div class="form-group">

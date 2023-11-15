@@ -34,7 +34,27 @@ class ProdutoDAO extends BaseDAO
     {
         $resultado = $this->select("SELECT * FROM produtos");
 
-        return $resultado->fetchAll(\PDO::FETCH_CLASS, Produto::class);
+        $dataSetProdutos = $resultado->fetchAll();
+
+        $listaProdutos = [];
+        
+        if($dataSetProdutos) {
+
+            foreach($dataSetProdutos as $dataSetProduto) :
+                
+                $produto = new Produto();
+                $produto->setId($dataSetProduto['idProduto']);
+                $produto->setNome($dataSetProduto['nome']);
+                $produto->setMarca($dataSetProduto['marca']);
+                $produto->setConteudo($dataSetProduto['conteudo']);
+                $produto->setValor($dataSetProduto['valor']);
+                $produto->setImagem($dataSetProduto['imagem']);
+                $listaProdutos[] = $produto;
+                
+            endforeach;
+        }
+
+        return $listaProdutos;
     }
 
     public function listarPaginacao($busca = null, $totalPorPagina = 6, $paginaSelecionada = 1)
