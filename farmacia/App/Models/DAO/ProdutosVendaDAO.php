@@ -17,7 +17,12 @@ class ProdutosVendaDAO extends BaseDAO
 
     public function listar($id)
     {
-        $resultado = $this->select("SELECT pv.*, p.nome as nomeproduto, p.idProduto as idProd FROM produtos_da_venda pv, produtos p WHERE pv.idProduto = p.idProduto AND idVenda = $id");
+        $resultado = $this->select("SELECT 
+          pv.*
+        , p.nome as nomeProd
+        , p.idProduto as idProd
+        , p.valor as valorProd
+        FROM produtos_da_venda pv, produtos p WHERE pv.idProduto = p.idProduto AND idVenda = $id");
 
         $dataSetVendas = $resultado->fetchAll();
 
@@ -30,7 +35,8 @@ class ProdutosVendaDAO extends BaseDAO
                 $pvenda = new ProdutosVenda();
                 $pvenda->setId($dataSetVenda['id']);
                 $pvenda->getProduto()->setId($dataSetVenda['idProd']);
-                $pvenda->getProduto()->setNome($dataSetVenda['nomeproduto']);
+                $pvenda->getProduto()->setNome($dataSetVenda['nomeProd']);
+                $pvenda->getProduto()->setValor($dataSetVenda['valorProd']);
                 $pvenda->setQuantidade($dataSetVenda['quantidade']);
                 $listapVendas[] = $pvenda;
                 
