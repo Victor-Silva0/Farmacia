@@ -28,12 +28,12 @@
                             <td class="info">Cliente</td>
                             <td class="info">Valor</td>
                             <td class="info">Data e hora</td>
-                            <td class="info" style="width: 15%">Ação</td>
+                            <td class="info" style="width: 30%">Ação</td>
                         </tr>
-                        <?php foreach ($viewVar['listaVendas'] as $venda) { ?>
+                        <?php foreach ($viewVar['listaVendas'] as $venda) : ?>
                             <tr class="table-light">
                                 <td><?= $venda->getId() ?></td>
-                                <td><?= $venda->getClientes()->getNome() ?></td>
+                                <td><?= $venda->getClientes()->getNome() ?></td>                              
                                 <td>R$ <?= number_format($venda->getValor(), 2, ',', '.') ?></td>
                                 <td><?= date('d/m/Y h:i:s',strtotime($venda->getDhVenda())) ?></td>
                                 <td>
@@ -41,13 +41,17 @@
                                         class="btn btn-info btn-sm">
                                         <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Editar
                                     </a>
+                                    <a href="http://<?= APP_HOST ?>/produto_venda/index/<?= $venda->getId() ?>"
+                                        class="btn btn-info btn-sm">
+                                        <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Produtos
+                                    </a>
                                     <a href="http://<?= APP_HOST ?>/venda/exclusao/<?= $venda->getId() ?>"
                                         class="btn btn-danger btn-sm">
                                         <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Excluir
                                     </a>
                                 </td>
                             </tr>
-                        <?php } ?>
+                        <?php endforeach ?>
                     </table>
                 </div>
             <?php } ?>
