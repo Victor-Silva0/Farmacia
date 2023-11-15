@@ -15,19 +15,15 @@
             <div class="form-group">
                 <label for="idproduto">Produto</label>
                 <select class="form-control" name="idproduto" required>
-                    <?php foreach ($viewVar['listaProdutos'] as $produto) { ?>
+                    <?php foreach ($viewVar['listaProdutos'] as $produto) : ?>
                         <option value="<?= $produto->getId() ?>"><?= $produto->getNome() ?></option>
-                    <?php } ?>
+                    <?php endforeach ?>
                 </select>
             </div>
             <br />
             <div class="form-group">
                 <label for="idvenda">Venda</label>
-                <select class="form-control" name="idvenda" required>
-                    <?php foreach ($viewVar['listaVendas'] as $venda) { ?>
-                        <option value="<?= $venda->getId() ?>"><?= $venda->getId() ?></option>
-                    <?php } ?>
-                </select>
+                <input type="text" class="form-control" name="idvenda" value="1" disabled> <!-- aqui tem que pegar o código selecionado na lista ... deixei assim para forçar-->
             </div>
             <br />
             <div class="form-group">
