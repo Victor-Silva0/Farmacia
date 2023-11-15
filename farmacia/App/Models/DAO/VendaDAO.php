@@ -27,7 +27,7 @@ class VendaDAO extends BaseDAO
 
     public function listar()
     {
-        $resultado = $this->select("SELECT * FROM vendas");
+        $resultado = $this->select("SELECT v.*, c.nome as nomecliente FROM vendas v, clientes c WHERE v.idCliente = c.idCliente");
 
         $dataSetVendas = $resultado->fetchAll();
 
@@ -41,6 +41,7 @@ class VendaDAO extends BaseDAO
                 $venda->setId($dataSetVenda['idVenda']);
                 $venda->setDhVenda($dataSetVenda['dhVenda']);
                 $venda->setValor($dataSetVenda['valor']);
+                $venda->getClientes()->setNome($dataSetVenda['nomecliente']);
                 $listaVendas[] = $venda;
                 
             endforeach;
