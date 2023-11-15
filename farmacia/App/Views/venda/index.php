@@ -41,14 +41,22 @@
                                         class="btn btn-info btn-sm">
                                         <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Editar
                                     </a>
-                                    <a href="http://<?= APP_HOST ?>/produto_venda/index/<?= $venda->getId() ?>"
-                                        class="btn btn-info btn-sm">
-                                        <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Produtos
-                                    </a>
+
                                     <a href="http://<?= APP_HOST ?>/venda/exclusao/<?= $venda->getId() ?>"
                                         class="btn btn-danger btn-sm">
                                         <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Excluir
                                     </a>
+
+                                    <a href="http://<?= APP_HOST ?>/produto_venda/index/<?= $venda->getId() ?>"
+                                        class="btn btn-info btn-sm">
+                                        <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Produtos
+                                    </a>
+
+                                    <a href="http://<?= APP_HOST ?>/produto_venda/cadastro/<?= $venda->getId() ?>"
+                                        class="btn btn-info btn-sm">
+                                        <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> + Produto
+                                    </a>
+
                                 </td>
                             </tr>
                         <?php endforeach ?>
