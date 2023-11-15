@@ -36,13 +36,21 @@ class VendaDAO extends BaseDAO
         if($dataSetVendas) {
 
             foreach($dataSetVendas as $dataSetVenda) :
-                
-                $venda = new Vendas();
-                $venda->setId($dataSetVenda['idVenda']);
-                $venda->setDhVenda($dataSetVenda['dhVenda']);
-                $venda->setValor($dataSetVenda['valor']);
-                $listaVendas[] = $venda;
-                
+
+                $idCliente = $dataSetVenda['idCliente'];
+                $resultado_cliente = $this->select("SELECT * FROM clientes WHERE idCliente  = $idCliente");
+                $dataSetCliente = $resultado_cliente->fetch();
+
+                if ($dataSetCliente) {
+
+                    
+                    $venda = new Vendas();
+                    $venda->setId($dataSetVenda['idVenda']);
+                    $venda->setDhVenda($dataSetVenda['dhVenda']);
+                    $venda->setValor($dataSetVenda['valor']);
+                    $venda->getClientes()->setNome($dataSetCliente['nome']);
+                    $listaVendas[] = $venda;
+                }
             endforeach;
         }
 
