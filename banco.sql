@@ -130,8 +130,8 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `farmacia`;
-INSERT INTO `farmacia`.`clientes` (`idCliente`, `nome`, `celular`, `email`) VALUES (1, 'Rafael Fernandes de Melo Lopes', '18981628848', 'rafael_lopes51@hotmail.com');
-INSERT INTO `farmacia`.`clientes` (`idCliente`, `nome`, `celular`, `email`) VALUES (2, 'Victor Amaral', '18999999999', 'victor@hotmail.com');
+INSERT INTO `farmacia`.`clientes` (`idCliente`, `nome`, `celular`, `email`) VALUES (1, 'Rafael', '18981628848', 'rafael@hotmail.com');
+INSERT INTO `farmacia`.`clientes` (`idCliente`, `nome`, `celular`, `email`) VALUES (2, 'Victor', '18999999999', 'victor@hotmail.com');
 INSERT INTO `farmacia`.`clientes` (`idCliente`, `nome`, `celular`, `email`) VALUES (3, 'Breno', '18999999999', 'breno@hotmail.com');
 INSERT INTO `farmacia`.`clientes` (`idCliente`, `nome`, `celular`, `email`) VALUES (4, 'Pedro', '18976548888', 'pedro@hotmail.com');
 
@@ -143,8 +143,9 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `farmacia`;
-INSERT INTO `farmacia`.`vendas` (`idVenda`, `idCliente`, `dhVenda`, `valor`) VALUES (1, 1, '', 100);
-INSERT INTO `farmacia`.`vendas` (`idVenda`, `idCliente`, `dhVenda`, `valor`) VALUES (2, 2, '', 200);
+INSERT INTO `farmacia`.`vendas` (`idVenda`, `idCliente`, `dhVenda`, `valor`) VALUES (1, 1, '12/11/2023 05:01:50', 10);
+INSERT INTO `farmacia`.`vendas` (`idVenda`, `idCliente`, `dhVenda`, `valor`) VALUES (2, 2, '13/11/2023 05:01:50', 20);
+INSERT INTO `farmacia`.`vendas` (`idVenda`, `idCliente`, `dhVenda`, `valor`) VALUES (3, 4, '14/11/2023 05:01:50', 40);
 
 COMMIT;
 
