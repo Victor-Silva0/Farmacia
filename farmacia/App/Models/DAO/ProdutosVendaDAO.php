@@ -14,12 +14,31 @@ class ProdutosVendaDAO extends BaseDAO
         return $resultado->fetchAll(\PDO::FETCH_CLASS, ProdutosVenda::class);
     }
 
-    public function listar ()
-    {
-        $resultado = $this->select("SELECT * FROM produtos_da_venda WHERE idVenda = 3"); //aqui eu forcei o ID para testar
 
-        return $resultado->fetchAll(\PDO::FETCH_CLASS, ProdutosVenda::class);
+    public function listar()
+    {
+        $resultado = $this->select("SELECT pv.*, p.nome as nomeproduto FROM produtos_da_venda pv, produtos p WHERE pv.idProduto = p.idProduto AND idVenda = 1");
+
+        $dataSetVendas = $resultado->fetchAll();
+
+        $listapVendas = [];
+        
+        if($dataSetVendas) {
+
+            foreach($dataSetVendas as $dataSetVenda) :
+                
+                $pvenda = new ProdutosVenda();
+                $pvenda->setId($dataSetVenda['id']);
+                $pvenda->getProduto()->setNome($dataSetVenda['nomeproduto']);
+                $pvenda->setQuantidade($dataSetVenda['quantidade']);
+                $listapVendas[] = $pvenda;
+                
+            endforeach;
+        }
+
+        return $listapVendas;
     }
+
 
     public function salvar(ProdutosVenda $produtosVenda)
     {
