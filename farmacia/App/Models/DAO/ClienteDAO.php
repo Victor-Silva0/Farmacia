@@ -8,7 +8,7 @@ class ClienteDAO extends BaseDAO
 {
     public function getById ($id)
     {
-        $resultado = $this->select("SELECT * FROM clientes WHERE id = $id");
+        $resultado = $this->select("SELECT * FROM clientes WHERE idCliente = $id");
 
         $dataSetCliente = $resultado->fetch();
 
@@ -95,7 +95,7 @@ class ClienteDAO extends BaseDAO
     {
         try {
 
-            return $this->delete('clientes', "id = $id");
+            return $this->delete('clientes', "idCliente = $id");
 
         }catch (\Exception $e) {
             throw new \Exception("Erro ao excluir o clientes. " . $e->getMessage(), 500);
