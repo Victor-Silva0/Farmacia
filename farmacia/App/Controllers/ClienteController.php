@@ -157,9 +157,9 @@ class ClienteController extends Controller
 
         if ($totalProdutos = $clienteDAO->getQuantidadeVendas($_POST['id'])){
             if ($totalProdutos == 1) {
-                Sessao::gravaMensagem("O Cliente '{$cliente->getNome()}' não pode ser excluído pois existe 1 produto vinculado a ele.");
+                Sessao::gravaMensagem("O Cliente '{$cliente->getNome()}' não pode ser excluído pois existe 1 venda vinculada a ele.");
             }else{
-                Sessao::gravaMensagem("O Cliente '{$cliente->getNome()}' não pode ser excluído pois existem {$totalProdutos} produtos vinculados a ele.");
+                Sessao::gravaMensagem("O Cliente '{$cliente->getNome()}' não pode ser excluído pois existem {$totalProdutos} vendas vinculadas a ele.");
             }
             $this->redirect('/cliente');
         }
