@@ -34,7 +34,7 @@
                     <button type="submit" class="btn btn-danger btn-sm">
                         <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Excluir
                     </button>
-                    <a href="http://<?php echo APP_HOST; ?>/produto_venda" class="btn btn-info btn-sm">
+                    <a href="http://<?php echo APP_HOST; ?>/produto_venda/index/<?= $viewVar['produtoVenda']->getVendas()->getId() ?>" class="btn btn-info btn-sm">
                         <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Cancelar
                     </a>
                 </div>
