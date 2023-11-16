@@ -12,6 +12,7 @@
 
         <form action="http://<?php echo APP_HOST; ?>/produto_venda/atualizar" method="post" id="form_cadastro" enctype="multipart/form-data">
             <input type="hidden" class="form-control" name="id" value="<?php echo $viewVar['produtoVenda']->getId(); ?>">
+            <input type="hidden" class="form-control" name="idvenda" value="<?php echo $viewVar['produtoVenda']->getVendas()->getId(); ?>">
             <br />
             <div class="form-group">
                 <label for="idproduto">Produto</label>
