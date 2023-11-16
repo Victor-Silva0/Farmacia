@@ -73,7 +73,7 @@ class ProdutoVendaController extends Controller
 
         } catch (\Exception $e) {
             Sessao::gravaMensagem($e->getMessage());
-            $this->redirect('/produto_venda');
+            $this->redirect('/produto_venda/index/' . $produto->getVendas()->getId());
         }
 
         Sessao::limpaFormulario();
