@@ -34,7 +34,7 @@
             <button type="submit" class="btn btn-success btn-sm">
                 <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> Salvar
             </button>
-            <a href="http://<?php echo APP_HOST; ?>/produto_venda" class="btn btn-info btn-sm">
+            <a href="http://<?php echo APP_HOST; ?>/produto_venda/index/<?= $viewVar['idvenda'] ?>" class="btn btn-info btn-sm">
                 <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Cancelar
             </a>
         </form>
