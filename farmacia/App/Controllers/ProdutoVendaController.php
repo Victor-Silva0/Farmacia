@@ -115,6 +115,8 @@ class ProdutoVendaController extends Controller
         $ProdutosVenda->setId($_POST['id']);
         $ProdutosVenda->getProduto()->setId($_POST['idproduto']);
         $ProdutosVenda->setQuantidade($_POST['quantidade']);
+        $ProdutosVenda->getVendas()->setId($_POST['idvenda']);
+
 
         Sessao::gravaFormulario($_POST);
 
@@ -134,16 +136,16 @@ class ProdutoVendaController extends Controller
 
         } catch (\Exception $e) {
             Sessao::gravaMensagem($e->getMessage());
-            $this->redirect('/venda');            
+            $this->redirect('/produto_venda/index/' . $ProdutosVenda->getVendas()->getId());            
         }
 
         Sessao::limpaFormulario();
         Sessao::limpaMensagem();
         Sessao::limpaErro();
 
-        Sessao::gravaMensagem("Venda atualizado com sucesso!");
+        Sessao::gravaMensagem("Produto da venda atualizado com sucesso!");
 
-        $this->redirect('/venda');
+        $this->redirect('/produto_venda/index/' . $ProdutosVenda->getVendas()->getId());
     }
 
     public function exclusao($params)
