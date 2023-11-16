@@ -21,7 +21,7 @@ class Paginacao
     $queryString = (isset($busca)) ? "&busca=$busca" : "";
     $primeiraPagina = 1;
 
-    $html = '<div class="row">';
+    $html = '<div>';
     $html .= '<div class="col-md-12 cenralizado">';
     $html .= '<ul class="pagination pagination-sm">';
     
