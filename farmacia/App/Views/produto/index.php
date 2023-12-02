@@ -16,7 +16,7 @@
                         <input type="text" placeholder="Digite..." value="" class="form-control input-sm" name="busca" />
 
                         <div class="input-group-btn">
-                            <button class="btn btn-success btn-sm" type="submit">Buscar</button>
+                            <button class="btn btn-success btn-sm p-2 ms-2" type="submit">Buscar</button>
                         </div>
                     </div>
                 </div>
