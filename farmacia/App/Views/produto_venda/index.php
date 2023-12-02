@@ -8,9 +8,6 @@
             <a href="http://<?= APP_HOST ?>/produto_venda/cadastro/<?= $viewVar['idvenda'] ?>" class="btn btn-success btn-sm">
                 <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Adicionar
             </a>
-            <a href="http://<?= APP_HOST ?>/venda" class="btn btn-info btn-sm">
-                <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Voltar
-            </a>
         </div>
             <hr>
 
