@@ -44,6 +44,19 @@ CREATE TABLE IF NOT EXISTS `farmacia`.`clientes` (
   PRIMARY KEY (`idCliente`))
 ENGINE = InnoDB;
 
+-- -----------------------------------------------------
+-- Table `farmacia`.`comentarios`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `farmacia`.`comentarios` ;
+
+CREATE TABLE IF NOT EXISTS `farmacia`.`comentarios` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nome` varchar(100) NOT NULL,
+  `texto` varchar(255) NOT NULL,
+  `data_comentario` datetime NOT NULL DEFAULT current_timestamp(),
+   PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 
 -- -----------------------------------------------------
 -- Table `farmacia`.`vendas`
@@ -158,5 +171,21 @@ INSERT INTO `farmacia`.`produtos_da_venda` (`id`,`idVenda`, `idProduto`,`quantid
 INSERT INTO `farmacia`.`produtos_da_venda` (`id`,`idVenda`, `idProduto`,`quantidade` ) VALUES (2, 1, 2, 1);
 INSERT INTO `farmacia`.`produtos_da_venda` (`id`,`idVenda`, `idProduto`,`quantidade` ) VALUES (3, 2, 3, 1);
 INSERT INTO `farmacia`.`produtos_da_venda` (`id`,`idVenda`, `idProduto`,`quantidade` ) VALUES (4, 2, 4, 1);
+
+COMMIT;
+
+
+
+-- -----------------------------------------------------
+-- Data for table `farmacia`.`comentarios`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `farmacia`;
+INSERT INTO `farmacia`.`comentarios` (`id`, `nome`, `texto`, `data_comentario`) VALUES (1, 'Jose Luiz', 'Gostei do atendimento prestado pela equipe da FarmaTech. Nota MIIIIIIIL', '14/11/2023 05:01:50');
+INSERT INTO `farmacia`.`comentarios` (`id`, `nome`, `texto`, `data_comentario`) VALUES (1, 'Maria Jose', 'Gostei do atendimento prestado pelo farmaceutico que me explicou tudo sobre o medicamento.', '15/11/2023 05:01:50');
+INSERT INTO `farmacia`.`comentarios` (`id`, `nome`, `texto`, `data_comentario`) VALUES (1, 'Silvia Trajano', 'O caixa demorou muito no atendimento, tinham mais ou menos 20 pessoas na fila. Não gostei.', '17/11/2023 05:01:50');
+INSERT INTO `farmacia`.`comentarios` (`id`, `nome`, `texto`, `data_comentario`) VALUES (1, 'Aparecido Godinho', 'A farmacia fica próxima ao centro médico, o que facilita a compra na hora que saimos de uma consulta.', '18/11/2023 05:01:50');
+
+
 
 COMMIT;
