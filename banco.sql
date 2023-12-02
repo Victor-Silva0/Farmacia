@@ -53,7 +53,7 @@ CREATE TABLE IF NOT EXISTS `farmacia`.`comentarios` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(100) NOT NULL,
   `texto` varchar(255) NOT NULL,
-  `data_comentario` datetime NOT NULL DEFAULT current_timestamp(),
+  `data_comentario` timestamp NOT NULL DEFAULT current_timestamp(),
    PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -182,9 +182,9 @@ COMMIT;
 START TRANSACTION;
 USE `farmacia`;
 INSERT INTO `farmacia`.`comentarios` (`id`, `nome`, `texto`, `data_comentario`) VALUES (1, 'Jose Luiz', 'Gostei do atendimento prestado pela equipe da FarmaTech. Nota MIIIIIIIL', '14/11/2023 05:01:50');
-INSERT INTO `farmacia`.`comentarios` (`id`, `nome`, `texto`, `data_comentario`) VALUES (1, 'Maria Jose', 'Gostei do atendimento prestado pelo farmaceutico que me explicou tudo sobre o medicamento.', '15/11/2023 05:01:50');
-INSERT INTO `farmacia`.`comentarios` (`id`, `nome`, `texto`, `data_comentario`) VALUES (1, 'Silvia Trajano', 'O caixa demorou muito no atendimento, tinham mais ou menos 20 pessoas na fila. Não gostei.', '17/11/2023 05:01:50');
-INSERT INTO `farmacia`.`comentarios` (`id`, `nome`, `texto`, `data_comentario`) VALUES (1, 'Aparecido Godinho', 'A farmacia fica próxima ao centro médico, o que facilita a compra na hora que saimos de uma consulta.', '18/11/2023 05:01:50');
+INSERT INTO `farmacia`.`comentarios` (`id`, `nome`, `texto`, `data_comentario`) VALUES (2, 'Maria Jose', 'Gostei do atendimento prestado pelo farmaceutico que me explicou tudo sobre o medicamento.', '15/11/2023 05:01:50');
+INSERT INTO `farmacia`.`comentarios` (`id`, `nome`, `texto`, `data_comentario`) VALUES (3, 'Silvia Trajano', 'O caixa demorou muito no atendimento, tinham mais ou menos 20 pessoas na fila. Não gostei.', '17/11/2023 05:01:50');
+INSERT INTO `farmacia`.`comentarios` (`id`, `nome`, `texto`, `data_comentario`) VALUES (4, 'Aparecido Godinho', 'A farmacia fica próxima ao centro médico, o que facilita a compra na hora que saimos de uma consulta.', '18/11/2023 05:01:50');
 
 
 
