@@ -12,25 +12,25 @@
       <div class="carousel-item active text-center" style="transition: transform 1s ease, opacity .1s ease-out">
         <h1>Medicamentos</h1>
         <a href="link-para-medicamentos.html" style="border: 10px solid #133a3a; border-radius: 15px; display: inline-block;">
-        <img src="http://<?= APP_HOST ?>/public/images/1.jpg" style="margin: 0 auto;">
+        <img src="http://<?= APP_HOST ?>/public/images/1.jpg" width="400" height="200">
         </a>
       </div>
       <div class="carousel-item text-center" style="transition: transform 1s ease, opacity .1s ease-out">
         <h1>Suplementos e Vitaminas</h1>
         <a href="link-para-suplementos.html" style="border: 10px solid #133a3a; border-radius: 15px; display: inline-block;">
-        <img src="http://<?= APP_HOST ?>/public/images/2.jpg" style="margin: 0 auto;">
+        <img src="http://<?= APP_HOST ?>/public/images/2.jpg" width="400" height="200">
         </a>
       </div>
       <div class="carousel-item text-center" style="transition: transform 1s ease, opacity .1s ease-out">
         <h1>Beleza</h1>
         <a href="link-para-beleza.html" style="border: 10px solid #133a3a; border-radius: 15px; display: inline-block;">
-        <img src="http://<?= APP_HOST ?>/public/images/3.jpg" style="margin: 0 auto;">
+        <img src="http://<?= APP_HOST ?>/public/images/3.jpg" width="400" height="200">
         </a>
       </div>
       <div class="carousel-item text-center" style="transition: transform 1s ease, opacity .1s ease-out">
         <h1>Higiene</h1>
         <a href="link-para-higiene.html" style="border: 10px solid #133a3a; border-radius: 15px; display: inline-block;">
-        <img src="http://<?= APP_HOST ?>/public/images/4.jpg" style="margin: 0 auto;">
+        <img src="http://<?= APP_HOST ?>/public/images/4.jpg" width="400" height="200">
         </a>
       </div>
     </div>
@@ -47,7 +47,7 @@
 
 <div class="container1">
   <h1 class="text-white text-center">Nossos Produtos</h1>
-  <br>
+  <br />
 
   <div class="col-md-3 mx-auto">
     <form action="http://<?php echo APP_HOST; ?>" method="get" class="form-inline buscaDireita">
