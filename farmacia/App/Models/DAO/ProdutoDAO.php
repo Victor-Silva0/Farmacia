@@ -57,54 +57,76 @@ class ProdutoDAO extends BaseDAO
         return $listaProdutos;
     }
 
-    public function listarPaginacao($busca = null, $totalPorPagina = 6, $paginaSelecionada = 1)
+    public function listarPaginacao($busca = null, $totalPorPagina = 6, $paginaSelecionada = 1, $minPrice = NULL, $maxPrice = NULL)
     {
+        $minPrice = isset($_GET['minPrice']) ? intval($_GET['minPrice']) : null;
+        $maxPrice = isset($_GET['maxPrice']) ? intval($_GET['maxPrice']) : null;
+
+        if ($minPrice != null && $maxPrice == null) {
+        $maxPrice = 9999999;
+        }
+        elseif($minPrice == null && $maxPrice == null) {
+            $minPrice = 0;
+            $maxPrice= 9999999;
+        }
+
         $inicio = (($paginaSelecionada - 1) * $totalPorPagina);
         $busca = trim($busca);
-        $whereBusca = ''; 
-    
+        $condicoes = [];
+        
         if (!empty($busca)) {
-            $whereBusca = "WHERE nome LIKE '%$busca%' OR marca LIKE '%$busca%'";
+            $condicoes[] = "nome LIKE '%$busca%' OR marca LIKE '%$busca%'";
         }
-
-        $resultadoTotal = $this->select(
-            "SELECT count(*) as total 
-                FROM produtos
-                {$whereBusca}"
-        );
-
-        $resultado = $this->select(
-            "SELECT *
-                FROM produtos
-                {$whereBusca} 
-                LIMIT {$inicio}, {$totalPorPagina}"
-        );
-
-        $dataSetProdutos    = $resultado->fetchAll();
-        $totalLinhas        = $resultadoTotal->fetch()['total'];
-        $listaProdutos      = [];
-
-        if($dataSetProdutos) {
-
-            foreach($dataSetProdutos as $dataSetProduto) {
-                
-                $produto = new Produto();
-                $produto->setId($dataSetProduto['idProduto']);
-                $produto->setNome($dataSetProduto['nome']);
-                $produto->setMarca($dataSetProduto['marca']);
-                $produto->setConteudo($dataSetProduto['conteudo']);
-                $produto->setValor($dataSetProduto['valor']);                        
-                $produto->setImagem($dataSetProduto['imagem']);
-
-                $listaProdutos[] = $produto;
+    
+        if ($minPrice !== null || $maxPrice !== null) {
+            if ($minPrice !== null) {
+                $condicoes[] = "valor >= " . $minPrice;
             }
-            
+            if ($maxPrice !== null) {
+                $condicoes[] = "valor <= " . $maxPrice;
+            }
         }
 
-        return ['paginaSelecionada' => $paginaSelecionada,
-                'totalPorPagina'    => $totalPorPagina,
-                'totalLinhas'       => $totalLinhas,
-                'resultado'         => $listaProdutos];
+    
+        $whereBusca = (!empty($condicoes)) ? 'WHERE ' . implode(' AND ', $condicoes) : '';
+
+    
+        $sqlTotal = "SELECT count(*) as total FROM produtos $whereBusca";
+    
+        $resultadoTotal = $this->select($sqlTotal);
+        $totalLinhas = $resultadoTotal->fetch()['total'];
+    
+        $sqlProdutos = "SELECT * FROM produtos $whereBusca LIMIT $inicio, $totalPorPagina";
+    
+        try {
+            $resultado = $this->select($sqlProdutos);
+            $dataSetProdutos = $resultado->fetchAll();
+    
+            $listaProdutos = [];
+    
+            if ($dataSetProdutos) {
+                foreach ($dataSetProdutos as $dataSetProduto) {
+                    $produto = new Produto();
+                    $produto->setId($dataSetProduto['idProduto']);
+                    $produto->setNome($dataSetProduto['nome']);
+                    $produto->setMarca($dataSetProduto['marca']);
+                    $produto->setConteudo($dataSetProduto['conteudo']);
+                    $produto->setValor($dataSetProduto['valor']);
+                    $produto->setImagem($dataSetProduto['imagem']);
+    
+                    $listaProdutos[] = $produto;
+                }
+            }
+    
+            return [
+                'paginaSelecionada' => $paginaSelecionada,
+                'totalPorPagina' => $totalPorPagina,
+                'totalLinhas' => $totalLinhas,
+                'resultado' => $listaProdutos
+            ];
+        } catch (\Exception $e) {
+            throw new \Exception("Erro ao listar produtos: " . $e->getMessage(), 500);
+        }
     }
 
     

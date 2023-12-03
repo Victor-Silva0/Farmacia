@@ -17,15 +17,25 @@ class ProdutoController extends Controller
 
         $produtoDAO = new ProdutoDAO();
 
-        $busca              = isset($_GET['busca']) ? $_GET['busca'] : null;
-        $paginaSelecionada  = isset($_GET['paginaSelecionada']) ? $_GET['paginaSelecionada'] : 1;
-        $totalPorPagina     = 5;
+        $minPrice = isset($_GET['minPrice']) && is_numeric($_GET['minPrice']) ? $_GET['minPrice'] : null;
+        $maxPrice = isset($_GET['maxPrice']) && is_numeric($_GET['maxPrice']) ? $_GET['maxPrice'] : null;
+        $busca = isset($_GET['busca']) ? $_GET['busca'] : null;
+        $paginaSelecionada = isset($_GET['paginaSelecionada']) ? $_GET['paginaSelecionada'] : 1;
+        $totalPorPagina = 5;
 
-        
-        $listaProdutos  = $produtoDAO->listarPaginacao($busca, $totalPorPagina, $paginaSelecionada);
+        $listaProdutos = $produtoDAO->listarPaginacao(
+            $busca,
+            $totalPorPagina,
+            $paginaSelecionada,
+            $minPrice,  
+            $maxPrice   
+        );
+
         $paginacao      = new Paginacao($listaProdutos); 
 
         self::setViewParam('busca', $busca);
+        self::setViewParam('minPrice', $minPrice);
+        self::setViewParam('maxPrice', $maxPrice);
         self::setViewParam('paginacao', $paginacao->criandoLink($busca, "produto"));
         self::setViewParam('queryString', Paginacao::criandoQuerystring($paginaSelecionada, $busca));
         self::setViewParam('listaProdutos'  , $listaProdutos['resultado']);
